@@ -31,6 +31,7 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: var(--radius-sm); }
 body {
   font-family: var(--font-sans); color: var(--charcoal);
   background: var(--white); line-height: 1.7; -webkit-font-smoothing: antialiased;
@@ -88,7 +89,7 @@ body {
 
 /* TABS */
 .tab-nav { display: flex; gap: 4px; margin-bottom: 32px; border-bottom: 2px solid rgba(27,42,74,0.08); }
-.tab-btn { padding: 12px 24px; border: none; background: none; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 500; color: #8a95a5; cursor: pointer; transition: var(--transition); border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
+.tab-btn { padding: 12px 24px; border: none; background: none; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 500; color: #6a7a8a; cursor: pointer; transition: var(--transition); border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
 .tab-btn:hover { color: var(--navy); }
 .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 600; }
 .tab-panel { display: none; animation: fadeUp 0.4s ease; }
@@ -144,7 +145,7 @@ body {
 /* STAT CARDS */
 .stat-card { text-align: center; padding: 32px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(197,165,90,0.15); border-radius: var(--radius-lg); }
 .stat-num { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 8px; }
-.stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-weight: 400; }
+.stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.75); font-weight: 400; }
 
 /* BUYER TYPE TAGS */
 .btag { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; letter-spacing: 0.04em; margin-bottom: 8px; }
@@ -197,7 +198,7 @@ body.mode-all .sell-first-banner { display: flex; }
 .micro-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(197,165,90,0.06) 0%, transparent 70%); }
 .micro-cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
 .micro-cta h3 { font-family: var(--font-serif); color: var(--white); font-size: 1.4rem; margin-bottom: 8px; }
-.micro-cta p { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 20px; }
+.micro-cta p { color: rgba(255,255,255,0.75); font-size: 0.9rem; margin-bottom: 20px; }
 
 /* STICKY CTA */
 .sticky-cta { position: fixed; bottom: 24px; right: 24px; z-index: 999; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; pointer-events: none; }
@@ -221,15 +222,18 @@ body.mode-all .sell-first-banner { display: flex; }
 /* FOOTER */
 .footer { background: var(--navy); padding: 40px 24px; text-align: center; border-top: 1px solid rgba(197,165,90,0.15); }
 .footer-brand { font-family: var(--font-serif); color: var(--gold); font-size: 1.1rem; margin-bottom: 8px; }
-.footer-text { color: rgba(255,255,255,0.5); font-size: 0.82rem; line-height: 1.6; }
+.footer-text { color: rgba(255,255,255,0.7); font-size: 0.82rem; line-height: 1.6; }
 
 /* ANIMATIONS */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+button, .cta-btn, .goal-chip, .buyer-btn, .tab-btn, .calc-tab, .acc-trigger, .check-item { min-height: 44px; }
+
 /* RESPONSIVE */
 @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } .grid-4 { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 769px) and (max-width: 960px) { .nav-links { gap: 2px; } .nav-links a { font-size: 0.7rem; padding: 6px 8px; } }
 @media (max-width: 768px) {
   .nav-links { display: none; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 16px; border-bottom: 1px solid rgba(197,165,90,0.2); }
   .nav-toggle { display: block; } .section { padding: 60px 20px; }
@@ -263,8 +267,6 @@ body.mode-all .sell-first-banner { display: flex; }
   #calcTabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   /* Fix cost scenario switcher on mobile */
   .cost-switch { font-size: 0.78rem !important; padding: 8px 14px !important; }
-  /* Ensure buttons are tappable on mobile */
-  button, .cta-btn, .goal-chip, .buyer-btn, .tab-btn, .calc-tab, .acc-trigger { min-height: 44px; }
   /* Context cards on mobile */
   .context-first .grid-2, .context-repeat .grid-2 { grid-template-columns: 1fr !important; }
   /* Nav brand truncation */
@@ -290,6 +292,7 @@ body.mode-all .sell-first-banner { display: flex; }
   .nav-brand { font-size: 0.85rem; max-width: 160px; }
   .sticky-cta-btn { padding: 10px 16px; font-size: 0.78rem; }
 }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } .fade-in { opacity: 1 !important; transform: none !important; } }
 </style>
 </head>
 <body class="mode-all">
@@ -381,6 +384,11 @@ body.mode-all .sell-first-banner { display: flex; }
       </div>
     </div>
 
+    <div style="text-align:center;margin-bottom:32px;padding:20px;">
+      <p style="font-family:var(--font-serif);font-style:italic;font-size:1.1rem;color:rgba(255,255,255,0.85);max-width:600px;margin:0 auto 8px;">"Structure protects transactions. That's not a slogan — it's how we operate every single day."</p>
+      <p style="font-size:0.82rem;color:var(--gold);font-weight:600;">— Satish Brahmbhatt, Team Leader</p>
+    </div>
+
     <!-- Market urgency callout -->
     <div style="background:rgba(197,165,90,0.08);border:1px solid rgba(197,165,90,0.2);border-radius:var(--radius-lg);padding:24px 32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
       <div style="font-size:2rem;">&#9889;</div>
@@ -416,6 +424,18 @@ body.mode-all .sell-first-banner { display: flex; }
     <a href="https://selling.sbrealty.co" target="_blank" class="cta-btn cta-btn-gold" style="padding:13px 28px;font-size:0.88rem;white-space:nowrap;">Visit Our Seller Platform &rarr;</a>
   </div>
 </div>
+
+<!-- TESTIMONIALS -->
+<section class="section" style="padding-top:48px;padding-bottom:48px;">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> What Our Buyers Say</div>
+    <div class="grid-3" style="gap:24px;">
+      <div class="card" style="border-left:4px solid var(--gold);"><p style="font-style:italic;color:#5a6a7a;font-size:0.92rem;margin-bottom:12px;">"The entire process was seamless from start to finish. As first-time buyers, we had a million questions and every single one was answered with patience and expertise."</p><p style="font-weight:600;color:var(--navy);font-size:0.85rem;">— First-Time Buyer, Mechanicsburg</p></div>
+      <div class="card" style="border-left:4px solid var(--gold);"><p style="font-style:italic;color:#5a6a7a;font-size:0.92rem;margin-bottom:12px;">"We were selling and buying simultaneously and the coordination between both transactions was flawless. Closed on time with zero surprises on either side."</p><p style="font-weight:600;color:var(--navy);font-size:0.85rem;">— Move-Up Buyer, Camp Hill</p></div>
+      <div class="card" style="border-left:4px solid var(--gold);"><p style="font-style:italic;color:#5a6a7a;font-size:0.92rem;margin-bottom:12px;">"Their daily market monitoring found us a home that wasn't even on our radar. We toured it within hours of listing and had an accepted offer that evening."</p><p style="font-weight:600;color:var(--navy);font-size:0.85rem;">— Buyer, Harrisburg</p></div>
+    </div>
+  </div>
+</section>
 
 <!-- ==================== MODULE 2: GOALS + LEAD CAPTURE ==================== -->
 <section class="section section-cream" id="goals">
@@ -508,6 +528,7 @@ body.mode-all .sell-first-banner { display: flex; }
           Submit My Buyer Profile &amp; Get a Custom Strategy
         </button>
         <p id="leadFormMsg" style="display:none;margin-top:10px;font-size:0.85rem;text-align:center;padding:10px;border-radius:var(--radius-sm);"></p>
+        <p style="font-size:0.75rem;color:#8a95a5;text-align:center;margin-top:8px;">&#128274; Your information is private and never shared with third parties.</p>
 
         <div class="context-first">
           <div class="callout" style="margin-bottom:0;">
@@ -699,6 +720,7 @@ body.mode-all .sell-first-banner { display: flex; }
                 <textarea id="lf-message" placeholder="Anything you'd like Andrew to know? (optional)" rows="2" class="form-input" style="margin-bottom:12px;resize:vertical;"></textarea>
                 <button type="button" onclick="submitLenderForm()" class="cta-btn cta-btn-gold" style="width:100%;justify-content:center;padding:13px 24px;font-size:0.9rem;" id="lenderSubmitBtn">Send to Andrew &amp; Get Pre-Approval Started</button>
                 <p id="lenderFormMsg" style="display:none;margin-top:10px;font-size:0.85rem;text-align:center;padding:10px;border-radius:var(--radius-sm);"></p>
+                <p style="font-size:0.75rem;color:#8a95a5;text-align:center;margin-top:8px;">&#128274; Your information is private and never shared with third parties.</p>
               </form>
             </div>
           </div>
@@ -750,6 +772,9 @@ body.mode-all .sell-first-banner { display: flex; }
       </div>
       <div class="disclaimer" style="margin-top:16px;">This calculator provides estimates for educational purposes only. Actual rates, PMI/MIP costs, taxes, and insurance will vary. Contact Andrew Morcos at First Alliance Home Mortgage for a personalized quote.</div>
     </div>
+    <div class="callout" style="margin-top:24px;margin-bottom:16px;">
+      <strong>Your choice of lender is always yours.</strong> We recommend Andrew because of his responsiveness and loan product expertise, but you are never required to use our preferred lender. You may work with any lender of your choosing.
+    </div>
     <div class="disclaimer">Loan type information is provided for general educational purposes. Specific rates, terms, requirements, and eligibility criteria vary by lender, program, and individual financial situation.</div>
   </div>
 </section>
@@ -757,8 +782,8 @@ body.mode-all .sell-first-banner { display: flex; }
 <!-- ==================== MICRO-CTA #2 ==================== -->
 <div class="micro-cta">
   <div class="micro-cta-inner">
-    <h3>Know your budget? Let's find your home.</h3>
-    <p>Once you're pre-approved, we activate your custom search and start monitoring the market daily.</p>
+    <h3>Numbers make sense? Let's find the right home.</h3>
+    <p>With financing sorted, our team activates daily market monitoring and curated alerts matched to your criteria.</p>
     <a href="#goals" class="cta-btn cta-btn-gold" style="padding:13px 32px;font-size:0.9rem;">Submit Your Buyer Profile</a>
   </div>
 </div>
@@ -932,8 +957,8 @@ body.mode-all .sell-first-banner { display: flex; }
 <!-- ==================== MICRO-CTA #3 ==================== -->
 <div class="micro-cta">
   <div class="micro-cta-inner">
-    <h3>Ready to start looking?</h3>
-    <p>Submit your buyer profile and we'll build your custom search — daily monitoring, curated alerts, and strategic guidance.</p>
+    <h3>You've done the research. Now let's take action.</h3>
+    <p>Submit your buyer profile and our team builds your custom strategy — timeline, areas, price range, and a plan to win.</p>
     <a href="#goals" class="cta-btn cta-btn-gold" style="padding:13px 32px;font-size:0.9rem;">Start Your Custom Home Search</a>
   </div>
 </div>
@@ -990,7 +1015,7 @@ body.mode-all .sell-first-banner { display: flex; }
 <!-- ==================== MODULE 9: INSPECTIONS + APPRAISAL + CLOSING + PAPERWORK ==================== -->
 <section class="section" id="inspections">
   <div class="container">
-    <div class="section-badge"><span class="badge-line"></span> Modules 08-10</div>
+    <div class="section-badge"><span class="badge-line"></span> Module 08</div>
     <h2 class="section-title">From Inspection to Closing Day</h2>
     <p class="section-sub">The critical period between accepted offer and keys in hand. Here's everything that happens and what to expect.</p>
 
@@ -1030,7 +1055,7 @@ body.mode-all .sell-first-banner { display: flex; }
 <!-- ==================== MODULE 10: TRACKER ==================== -->
 <section class="section section-navy" id="tracker">
   <div class="container">
-    <div class="section-badge" style="color:var(--gold);"><span class="badge-line"></span> Module 11</div>
+    <div class="section-badge" style="color:var(--gold);"><span class="badge-line"></span> Module 09</div>
     <h2 class="section-title" style="color:var(--white);">Your Buying Readiness Tracker</h2>
     <p class="section-sub" style="color:rgba(255,255,255,0.7);">Track your progress. Check off items as you complete them — your progress is saved automatically.</p>
     <div class="progress-wrap"><div class="progress-label" style="color:rgba(255,255,255,0.8);"><span>Overall Progress</span><span id="trackerPercent">0%</span></div><div class="progress-bar" style="background:rgba(255,255,255,0.1);"><div class="progress-fill" id="trackerFill"></div></div></div>
@@ -1085,7 +1110,7 @@ body.mode-all .sell-first-banner { display: flex; }
 <!-- ==================== MODULE 11: FAQ ==================== -->
 <section class="section" id="faq">
   <div class="container">
-    <div class="section-badge"><span class="badge-line"></span> Module 12</div>
+    <div class="section-badge"><span class="badge-line"></span> Module 10</div>
     <h2 class="section-title">Questions Every Buyer Asks — Honest Answers</h2>
     <p class="section-sub">No hedging, no jargon. Clear answers to the questions we hear most.</p>
 
@@ -1128,7 +1153,7 @@ body.mode-all .sell-first-banner { display: flex; }
         <div class="acc-item"><button class="acc-trigger"><span>Can I back out of a deal?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Contingencies exist for this. If inspection findings are unacceptable, you can generally withdraw within your contingency window. We structure offers to protect your exit options.</p></div></div></div>
       </div>
       <div class="accordion" id="faqAccordion2">
-        <div class="acc-item"><button class="acc-trigger"><span>Do I have to sign anything to work with you?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Depending on current requirements and brokerage policy, a buyer representation agreement may be part of the process. We explain exactly what it covers before you sign anything. Transparency is non-negotiable.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>Do I have to sign anything to work with you?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>As of current industry practice, a written buyer representation agreement is typically required before an agent can show you homes. This agreement defines the services provided, the term of the relationship, and how compensation works. We explain every section clearly before you sign — you'll know exactly what you're agreeing to and can ask questions about anything.</p></div></div></div>
         <div class="acc-item"><button class="acc-trigger"><span>What if the inspection reveals problems?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Every inspection reveals something. We review the report, separate routine maintenance from real concerns, and negotiate repair requests or credits where appropriate.</p></div></div></div>
         <div class="acc-item"><button class="acc-trigger"><span>What if the appraisal comes in low?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Options: renegotiate price, cover the gap, challenge with additional data, or exercise your contingency. A low appraisal is a data point — not an automatic deal-killer.</p></div></div></div>
         <div class="acc-item"><button class="acc-trigger"><span>When should I lock my rate?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Typically after your offer is accepted. Rate locks last 30-60 days. Your lender monitors conditions and recommends the right window.</p></div></div></div>
@@ -1154,6 +1179,25 @@ body.mode-all .sell-first-banner { display: flex; }
       <a href="#tracker" class="cta-btn cta-btn-outline" style="justify-content:center;width:100%;color:var(--navy);border-color:var(--navy);">Start Your Readiness Tracker</a>
       <a href="#financing" class="cta-btn cta-btn-outline" style="justify-content:center;width:100%;color:var(--navy);border-color:var(--navy);">Explore Financing Options</a>
     </div>
+    <div style="text-align:center;margin-bottom:20px;margin-top:8px;">
+      <p style="color:#5a6a7a;font-size:0.88rem;margin-bottom:12px;">Or reach us directly:</p>
+      <p style="font-size:1.05rem;color:var(--navy);font-weight:600;">
+        <a href="tel:+17177901847" style="color:var(--navy);text-decoration:none;">&#128222; (717) 790-1847</a>
+        &nbsp;&bull;&nbsp;
+        <a href="mailto:info@sbrealty.co" style="color:var(--navy);text-decoration:none;">&#9993; info@sbrealty.co</a>
+      </p>
+    </div>
+    <div style="max-width:500px;margin:0 auto;">
+      <div class="card" style="text-align:left;">
+        <h3 style="font-size:1rem;margin-bottom:12px;text-align:center;">Quick Question? Send Us a Message</h3>
+        <input type="text" placeholder="Your Name" class="form-input" style="margin-bottom:8px;" id="contact-name">
+        <input type="email" placeholder="Your Email" class="form-input" style="margin-bottom:8px;" id="contact-email">
+        <textarea placeholder="How can we help?" rows="3" class="form-input" style="margin-bottom:12px;resize:vertical;" id="contact-msg"></textarea>
+        <button type="button" class="cta-btn cta-btn-gold" style="width:100%;justify-content:center;" onclick="submitContactForm()">Send Message</button>
+        <p id="contactFormMsg" style="display:none;margin-top:8px;font-size:0.85rem;text-align:center;padding:8px;border-radius:var(--radius-sm);"></p>
+        <p style="font-size:0.75rem;color:#8a95a5;text-align:center;margin-top:8px;">&#128274; Your information is private and never shared.</p>
+      </div>
+    </div>
     <div style="margin-top:32px;padding-top:32px;border-top:1px solid rgba(27,42,74,0.1);">
       <p style="font-family:var(--font-serif);font-size:1.2rem;color:var(--navy);margin-bottom:8px;">The Satish Brahmbhatt Real Estate Group</p>
       <p style="font-size:0.9rem;color:#5a6a7a;">Central Pennsylvania &bull; Maryland &bull; Licensed in PA &amp; MD</p>
@@ -1163,8 +1207,24 @@ body.mode-all .sell-first-banner { display: flex; }
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-brand">The Satish Brahmbhatt Real Estate Group</div>
-  <p class="footer-text">Buyer Experience OS &bull; Built to Guide, Protect, and Prepare You<br><span style="font-size:0.75rem;margin-top:8px;display:inline-block;">This information is provided for general educational purposes only and does not constitute legal, tax, or lending advice.</span></p>
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="footer-brand">The Satish Brahmbhatt Real Estate Group</div>
+    <p class="footer-text" style="margin-bottom:12px;">Central Pennsylvania &bull; Maryland &bull; Licensed in PA &amp; MD</p>
+    <p class="footer-text" style="margin-bottom:12px;">
+      <a href="tel:+17177901847" style="color:rgba(255,255,255,0.6);text-decoration:none;">&#128222; (717) 790-1847</a>
+      &nbsp;&bull;&nbsp;
+      <a href="mailto:info@sbrealty.co" style="color:rgba(255,255,255,0.6);text-decoration:none;">info@sbrealty.co</a>
+    </p>
+    <p class="footer-text" style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:8px;">
+      &#9878; Equal Housing Opportunity. We are pledged to the letter and spirit of U.S. policy for the achievement of equal housing opportunity.
+    </p>
+    <p class="footer-text" style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:8px;">
+      This information is provided for general educational purposes only and does not constitute legal, tax, or lending advice. Specific forms, requirements, costs, and timelines may vary based on the property, financing, brokerage policy, and applicable law.
+    </p>
+    <p class="footer-text" style="font-size:0.72rem;color:rgba(255,255,255,0.4);">
+      &copy; 2026 The Satish Brahmbhatt Real Estate Group. All rights reserved.
+    </p>
+  </div>
 </footer>
 
 <!-- ==================== ALL JAVASCRIPT ==================== -->
@@ -1204,10 +1264,11 @@ body.mode-all .sell-first-banner { display: flex; }
     trigger.addEventListener('click', function() {
       const item = this.parentElement, body = item.querySelector('.acc-body'), content = body.querySelector('.acc-content'), wasOpen = item.classList.contains('open');
       const accordion = item.parentElement;
-      accordion.querySelectorAll('.acc-item.open').forEach(o => { if (o !== item) { o.classList.remove('open'); o.querySelector('.acc-body').style.maxHeight = '0'; } });
-      if (wasOpen) { item.classList.remove('open'); body.style.maxHeight = '0'; } else { item.classList.add('open'); body.style.maxHeight = content.scrollHeight + 'px'; }
+      accordion.querySelectorAll('.acc-item.open').forEach(o => { if (o !== item) { o.classList.remove('open'); o.querySelector('.acc-body').style.maxHeight = '0'; o.querySelector('.acc-trigger').setAttribute('aria-expanded','false'); } });
+      if (wasOpen) { item.classList.remove('open'); body.style.maxHeight = '0'; this.setAttribute('aria-expanded','false'); } else { item.classList.add('open'); body.style.maxHeight = content.scrollHeight + 'px'; this.setAttribute('aria-expanded','true'); }
     });
   });
+  document.querySelectorAll('.acc-trigger').forEach(function(t){ t.setAttribute('aria-expanded','false'); });
 
   // ===== TIMELINE =====
   document.querySelectorAll('.timeline-item').forEach(item => {
@@ -1242,9 +1303,18 @@ body.mode-all .sell-first-banner { display: flex; }
     const pe = document.getElementById('trackerPercent'), fe = document.getElementById('trackerFill');
     if (pe) pe.textContent = pct + '%'; if (fe) fe.style.width = pct + '%';
   }
+  function toggleCheck(item) {
+    var k = item.dataset.key; if (!k) return;
+    item.classList.toggle('checked');
+    var isChecked = item.classList.contains('checked');
+    item.setAttribute('aria-checked', String(isChecked));
+    checkState[k] = isChecked; saveCheckState(); updateProgress();
+  }
   document.querySelectorAll('.check-item').forEach(item => {
-    const key = item.dataset.key; if (key && checkState[key]) item.classList.add('checked');
-    item.addEventListener('click', function() { const k = this.dataset.key; if (!k) return; this.classList.toggle('checked'); checkState[k] = this.classList.contains('checked'); saveCheckState(); updateProgress(); });
+    item.setAttribute('role','checkbox'); item.setAttribute('tabindex','0'); item.setAttribute('aria-checked','false');
+    const key = item.dataset.key; if (key && checkState[key]) { item.classList.add('checked'); item.setAttribute('aria-checked','true'); }
+    item.addEventListener('click', function() { toggleCheck(this); });
+    item.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCheck(this); } });
   });
   updateProgress();
 
@@ -1498,6 +1568,24 @@ async function submitLenderForm() {
     btn.textContent='Submitted'; btn.style.background='#e65100'; btn.style.opacity='1';
     setTimeout(function(){ btn.disabled=false; btn.textContent='Send to Andrew & Get Pre-Approval Started'; btn.style.background=''; btn.style.opacity=''; }, 12000);
   }
+}
+
+// ==================== CONTACT FORM ====================
+async function submitContactForm() {
+  var btn = document.querySelector('#contact-name').parentElement.querySelector('.cta-btn');
+  var msg = document.getElementById('contactFormMsg');
+  var name = document.getElementById('contact-name').value.trim();
+  var email = document.getElementById('contact-email').value.trim();
+  var message = document.getElementById('contact-msg').value.trim();
+  if (!name || !email) { msg.style.display='block'; msg.style.background='rgba(229,57,53,0.08)'; msg.style.color='#c62828'; msg.textContent='Please enter your name and email.'; return; }
+  var parts = name.split(' '); var firstName = parts[0] || name; var lastName = parts.slice(1).join(' ') || '';
+  btn.disabled=true; btn.textContent='Sending...'; btn.style.opacity='0.6';
+  try {
+    var resp = await fetch('/api/submit-lead', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({firstName:firstName, lastName:lastName||'(Contact)', email:email, phone:'', message:message, source:'Buyer Experience OS - Contact Form'}) });
+    var result = await resp.json();
+    if (resp.ok && result.success) { msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32'; msg.textContent='Message sent! We\'ll be in touch shortly.'; btn.textContent='Sent'; btn.style.background='#2e7d32'; btn.style.opacity='1'; }
+    else throw new Error('failed');
+  } catch(e) { msg.style.display='block'; msg.style.background='rgba(255,152,0,0.1)'; msg.style.color='#e65100'; msg.textContent='Something went wrong. Call us at (717) 790-1847.'; btn.disabled=false; btn.textContent='Send Message'; btn.style.background=''; btn.style.opacity=''; }
 }
 </script>
 </body>
