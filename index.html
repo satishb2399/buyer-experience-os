@@ -1294,7 +1294,7 @@ body.mode-all .sell-first-banner { display: flex; }
   // ===== URL PERSONALIZATION =====
   const params = new URLSearchParams(window.location.search);
   const buyerName = params.get('name'), buyerType = params.get('type');
-  if (buyerName) { const hs = document.querySelector('.hero-sub'); if (hs) hs.innerHTML = 'Welcome, <span class="hero-name">' + buyerName + '</span>. ' + hs.textContent; }
+  if (buyerName) { const hs = document.querySelector('.hero-sub'); if (hs) { const orig = hs.textContent; hs.textContent = ''; var pre = document.createTextNode('Welcome, '); var ns = document.createElement('span'); ns.className = 'hero-name'; ns.textContent = buyerName; var suf = document.createTextNode('. ' + orig); hs.appendChild(pre); hs.appendChild(ns); hs.appendChild(suf); } }
   if (buyerType) {
     buyerBtns.forEach(b => b.classList.toggle('active', b.dataset.mode === buyerType));
     document.body.className = 'mode-' + buyerType;
@@ -1393,26 +1393,24 @@ document.querySelectorAll('.calc-tab').forEach(function(tab) {
   });
 });
 
-// ==================== FUB API CONFIG ====================
-const FUB_API_KEY = 'fka_0m4cPTFKj1TOgwzvydjVvnLsVHUwjaYx4n';
-const FUB_API_URL = 'https://api.followupboss.com/v1/events';
+// ==================== SANITIZE HELPER ====================
+function sanitizeText(str) { var d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 
 // ==================== LEAD FORM (GOALS MODULE) ====================
 async function submitLeadForm() {
-  const btn = document.getElementById('leadSubmitBtn'), msg = document.getElementById('leadFormMsg');
-  const firstName = document.getElementById('lead-first').value.trim();
-  const lastName = document.getElementById('lead-last').value.trim();
-  const email = document.getElementById('lead-email').value.trim();
-  const phone = document.getElementById('lead-phone').value.trim();
-  const buyerType = document.getElementById('lead-buyertype').value;
-  const notes = document.getElementById('lead-notes').value.trim();
+  var btn = document.getElementById('leadSubmitBtn'), msg = document.getElementById('leadFormMsg');
+  var firstName = document.getElementById('lead-first').value.trim();
+  var lastName = document.getElementById('lead-last').value.trim();
+  var email = document.getElementById('lead-email').value.trim();
+  var phone = document.getElementById('lead-phone').value.trim();
+  var buyerType = document.getElementById('lead-buyertype').value;
+  var notes = document.getElementById('lead-notes').value.trim();
 
-  // Collect chip selections
-  const getChips = (id) => { const chips = document.querySelectorAll('#'+id+' .goal-chip.selected'); return Array.from(chips).map(c => c.dataset.val).join(', '); };
-  const timeline = getChips('timelineSelect');
-  const propType = getChips('propSelect');
-  const areas = getChips('areaSelect');
-  const priorities = getChips('prioritySelect');
+  var getChips = function(id) { var chips = document.querySelectorAll('#'+id+' .goal-chip.selected'); return Array.from(chips).map(function(c){ return c.dataset.val; }).join(', '); };
+  var timeline = getChips('timelineSelect');
+  var propType = getChips('propSelect');
+  var areas = getChips('areaSelect');
+  var priorities = getChips('prioritySelect');
 
   if (!firstName || !lastName || !email || !phone) {
     msg.style.display='block'; msg.style.background='rgba(229,57,53,0.08)'; msg.style.color='#c62828';
@@ -1422,57 +1420,43 @@ async function submitLeadForm() {
   btn.disabled=true; btn.textContent='Submitting...'; btn.style.opacity='0.6';
 
   try {
-    const payload = {
-      source: 'Buyer Experience OS',
-      system: 'Buyer Experience OS',
-      type: 'Registration',
-      person: {
-        firstName: firstName, lastName: lastName,
-        emails: [{value: email}],
-        phones: phone ? [{value: phone}] : [],
-        tags: ['Buyer Lead', 'Buyer OS', buyerType || 'Type TBD'],
-      },
-      description: 'New buyer lead from Buyer Experience OS.\n' +
-        'Buyer Type: ' + (buyerType || 'Not specified') + '\n' +
-        'Timeline: ' + (timeline || 'Not specified') + '\n' +
-        'Property Type: ' + (propType || 'Not specified') + '\n' +
-        'Target Areas: ' + (areas || 'Not specified') + '\n' +
-        'Priorities: ' + (priorities || 'Not specified') + '\n' +
-        'Notes: ' + (notes || 'None')
-    };
-
-    const resp = await fetch(FUB_API_URL, {
+    var resp = await fetch('/api/submit-lead', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa(FUB_API_KEY + ':') },
-      body: JSON.stringify(payload)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, phone: phone, buyerType: buyerType, timeline: timeline, propType: propType, areas: areas, priorities: priorities, notes: notes, source: 'Buyer Experience OS' })
     });
+    var result = await resp.json();
 
-    if (resp.ok) {
+    if (resp.ok && result.success) {
       msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32';
       msg.textContent='Profile submitted! Our team will review your information and reach out within one business day with your custom buying strategy.';
       btn.textContent='Submitted Successfully'; btn.style.background='#2e7d32'; btn.style.opacity='1';
+      // Auto-populate lender form if empty
+      var lfFirst = document.getElementById('lf-first'); if (lfFirst && !lfFirst.value) lfFirst.value = firstName;
+      var lfLast = document.getElementById('lf-last'); if (lfLast && !lfLast.value) lfLast.value = lastName;
+      var lfEmail = document.getElementById('lf-email'); if (lfEmail && !lfEmail.value) lfEmail.value = email;
+      var lfPhone = document.getElementById('lf-phone'); if (lfPhone && !lfPhone.value) lfPhone.value = phone;
     } else {
-      throw new Error('API response: ' + resp.status);
+      throw new Error(result.error || 'Submission failed');
     }
   } catch(err) {
-    console.warn('FUB error:', err.message);
-    msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32';
-    msg.textContent='Thank you! Your profile has been received. Our team will be in touch within one business day.';
-    btn.textContent='Submitted'; btn.style.background='#2e7d32'; btn.style.opacity='1';
+    console.warn('Submission error:', err.message);
+    msg.style.display='block'; msg.style.background='rgba(255,152,0,0.1)'; msg.style.color='#e65100';
+    msg.textContent='Something went wrong. Please try again or call us at (717) 790-1847.';
+    btn.textContent='Try Again'; btn.style.background='#e65100'; btn.style.opacity='1';
+    setTimeout(function(){ btn.disabled=false; btn.textContent='Submit My Buyer Profile & Get a Custom Strategy'; btn.style.background=''; btn.style.opacity=''; }, 5000);
   }
-
-  setTimeout(() => { btn.disabled=false; btn.textContent='Submit My Buyer Profile & Get a Custom Strategy'; btn.style.background=''; btn.style.opacity=''; }, 10000);
 }
 
 // ==================== LENDER FORM ====================
 async function submitLenderForm() {
-  const btn = document.getElementById('lenderSubmitBtn'), msg = document.getElementById('lenderFormMsg');
-  const firstName = document.getElementById('lf-first').value.trim();
-  const lastName = document.getElementById('lf-last').value.trim();
-  const email = document.getElementById('lf-email').value.trim();
-  const phone = document.getElementById('lf-phone').value.trim();
-  const loanType = document.getElementById('lf-loantype').value;
-  const message = document.getElementById('lf-message').value.trim();
+  var btn = document.getElementById('lenderSubmitBtn'), msg = document.getElementById('lenderFormMsg');
+  var firstName = document.getElementById('lf-first').value.trim();
+  var lastName = document.getElementById('lf-last').value.trim();
+  var email = document.getElementById('lf-email').value.trim();
+  var phone = document.getElementById('lf-phone').value.trim();
+  var loanType = document.getElementById('lf-loantype').value;
+  var message = document.getElementById('lf-message').value.trim();
 
   if (!firstName || !lastName || !email) {
     msg.style.display='block'; msg.style.background='rgba(229,57,53,0.08)'; msg.style.color='#c62828';
@@ -1481,51 +1465,42 @@ async function submitLenderForm() {
 
   btn.disabled=true; btn.textContent='Sending...'; btn.style.opacity='0.6';
 
+  // Step 1: Save lead to FUB via server-side proxy
   try {
-    const payload = {
-      source: 'Buyer Experience OS - Lender Referral',
-      system: 'Buyer Experience OS',
-      type: 'Registration',
-      person: {
-        firstName: firstName, lastName: lastName,
-        emails: [{value: email}],
-        phones: phone ? [{value: phone}] : [],
-        tags: ['Lender Referral', 'Andrew Morcos', loanType || 'Loan Type TBD'],
-      },
-      description: 'Lender referral to Andrew Morcos at First Alliance Home Mortgage.\nLoan Type: ' + (loanType||'Not specified') + '\nMessage: ' + (message||'None') + '\nSource: Buyer Experience OS'
-    };
-    await fetch(FUB_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa(FUB_API_KEY + ':') }, body: JSON.stringify(payload) });
-  } catch(err) { console.warn('FUB:', err.message); }
-
-  // SEND AUTOMATED EMAILS VIA API
-  try {
-    const emailResp = await fetch('/api/send-lender-intro', {
+    await fetch('/api/submit-lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstName, lastName, email, phone, loanType, message })
+      body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, phone: phone, loanType: loanType, message: message, source: 'Buyer Experience OS - Lender Referral' })
     });
-    const emailResult = await emailResp.json();
+  } catch(err) { console.warn('Lead save:', err.message); }
+
+  // Step 2: Send automated emails via Resend API
+  try {
+    var emailResp = await fetch('/api/send-lender-intro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, phone: phone, loanType: loanType, message: message })
+    });
+    var emailResult = await emailResp.json();
 
     if (emailResp.ok && emailResult.success) {
       msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32';
-      msg.innerHTML='<strong>Done!</strong> Two emails sent automatically:<br>✅ Andrew has been notified of your referral<br>✅ ' + firstName + ' received an introduction email with a <strong>Pre-Qualify Now</strong> link';
+      msg.innerHTML='<strong>Done!</strong> Two emails sent automatically:<br>&#10003; Andrew has been notified of your referral<br>&#10003; ' + sanitizeText(firstName) + ' received an introduction email with a <strong>Pre-Qualify Now</strong> link';
       btn.textContent='Sent Successfully'; btn.style.background='#2e7d32'; btn.style.opacity='1';
     } else {
       throw new Error(emailResult.error || 'Email send failed');
     }
   } catch(emailErr) {
     console.warn('Email API error:', emailErr.message);
-    // Fallback to mailto if API fails
-    const andrewSubject = encodeURIComponent('New Buyer Referral: '+firstName+' '+lastName);
-    const andrewBody = encodeURIComponent('Hi Andrew,\n\nNew buyer referral:\n\nName: '+firstName+' '+lastName+'\nEmail: '+email+'\nPhone: '+(phone||'N/A')+'\nLoan Type: '+(loanType||'Not specified')+'\nMessage: '+(message||'None')+'\n\nSource: Buyer Experience OS');
+    var andrewSubject = encodeURIComponent('New Buyer Referral: '+firstName+' '+lastName);
+    var andrewBody = encodeURIComponent('Hi Andrew,\n\nNew buyer referral:\n\nName: '+firstName+' '+lastName+'\nEmail: '+email+'\nPhone: '+(phone||'N/A')+'\nLoan Type: '+(loanType||'Not specified')+'\nMessage: '+(message||'None')+'\n\nSource: Buyer Experience OS');
     window.open('mailto:amorcos@fahmloans.com?subject='+andrewSubject+'&body='+andrewBody, '_blank');
 
     msg.style.display='block'; msg.style.background='rgba(255,152,0,0.1)'; msg.style.color='#e65100';
-    msg.innerHTML='<strong>Lead saved to FUB.</strong> Auto-email is temporarily unavailable — a mailto window has opened instead. Hit send to notify Andrew.';
+    msg.textContent='Lead saved. Auto-email is temporarily unavailable — a mailto window has opened instead. Hit send to notify Andrew.';
     btn.textContent='Submitted'; btn.style.background='#e65100'; btn.style.opacity='1';
+    setTimeout(function(){ btn.disabled=false; btn.textContent='Send to Andrew & Get Pre-Approval Started'; btn.style.background=''; btn.style.opacity=''; }, 12000);
   }
-
-  setTimeout(() => { btn.disabled=false; btn.textContent='Send to Andrew & Get Pre-Approval Started'; btn.style.background=''; btn.style.opacity=''; }, 12000);
 }
 </script>
 </body>
