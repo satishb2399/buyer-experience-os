@@ -1497,49 +1497,34 @@ async function submitLenderForm() {
     await fetch(FUB_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa(FUB_API_KEY + ':') }, body: JSON.stringify(payload) });
   } catch(err) { console.warn('FUB:', err.message); }
 
-  // EMAIL 1: Referral to Andrew
-  const andrewSubject = encodeURIComponent('New Buyer Referral from The Satish Brahmbhatt Real Estate Group');
-  const andrewBody = encodeURIComponent('Hi Andrew,\n\nA new buyer would like to connect about financing.\n\nName: '+firstName+' '+lastName+'\nEmail: '+email+'\nPhone: '+(phone||'N/A')+'\nLoan Type: '+(loanType||'Not specified')+'\nMessage: '+(message||'None')+'\n\nSource: Buyer Experience OS\n\nThank you,\nThe Satish Brahmbhatt Real Estate Group');
-  window.open('mailto:amorcos@fahmloans.com?subject='+andrewSubject+'&body='+andrewBody, '_blank');
+  // SEND AUTOMATED EMAILS VIA API
+  try {
+    const emailResp = await fetch('/api/send-lender-intro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName, lastName, email, phone, loanType, message })
+    });
+    const emailResult = await emailResp.json();
 
-  // EMAIL 2: Introduction email TO the buyer (sent from team to buyer)
-  setTimeout(() => {
-    const buyerSubject = encodeURIComponent('Your Lending Partner — Andrew Morcos at First Alliance Home Mortgage');
-    const buyerBody = encodeURIComponent(
-      'Hi ' + firstName + ',\n\n' +
-      'Thank you for reaching out to The Satish Brahmbhatt Real Estate Group about your home purchase.\n\n' +
-      'We\'ve connected you with our preferred lending partner, Andrew Morcos at First Alliance Home Mortgage. Andrew is one of the most experienced mortgage professionals we work with — he specializes in finding the right financing solution for every buyer, whether you\'re exploring conventional, FHA, VA, or down payment assistance options.\n\n' +
-      '— — — — — — — — — — — — — — — — — —\n\n' +
-      'ANDREW MORCOS\n' +
-      'VP Business Development\n' +
-      'First Alliance Home Mortgage, LLC\n' +
-      'NMLS #190629 | Company NMLS #5034\n\n' +
-      'Cell: (201) 519-9712\n' +
-      'Office: (717) 755-4400 x1102\n' +
-      'Email: amorcos@fahmloans.com\n' +
-      '2805 Eastern Blvd, York, PA\n\n' +
-      '— — — — — — — — — — — — — — — — — —\n\n' +
-      'GET PRE-QUALIFIED NOW:\n' +
-      'https://amorcos.firstalliancehomemortgage.com\n\n' +
-      'Click the link above to start your pre-qualification on Andrew\'s secure portal. It takes about 10 minutes and helps determine your buying power before we begin your home search.\n\n' +
-      'WHAT HAPPENS NEXT:\n\n' +
-      '1. Click the link above and complete the pre-qualification form\n' +
-      '2. Andrew will review your information and call you to discuss your options\n' +
-      '3. Once pre-approved, we activate your custom home search and start monitoring the market daily\n\n' +
-      'Andrew typically reaches out within 24 hours of receiving your application. If you have questions before then, feel free to call or text him directly at (201) 519-9712.\n\n' +
-      'We look forward to guiding you through your home purchase.\n\n' +
-      'Best,\n' +
-      'The Satish Brahmbhatt Real Estate Group\n' +
-      'Central Pennsylvania | Maryland\n\n' +
-      '---\n' +
-      'This email is for informational purposes only and does not constitute a loan commitment or guarantee of rates or terms. All lending decisions are made by First Alliance Home Mortgage, LLC. Equal Housing Lender.'
-    );
-    window.open('mailto:' + email + '?subject=' + buyerSubject + '&body=' + buyerBody, '_blank');
-  }, 1500);
+    if (emailResp.ok && emailResult.success) {
+      msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32';
+      msg.innerHTML='<strong>Done!</strong> Two emails sent automatically:<br>✅ Andrew has been notified of your referral<br>✅ ' + firstName + ' received an introduction email with a <strong>Pre-Qualify Now</strong> link';
+      btn.textContent='Sent Successfully'; btn.style.background='#2e7d32'; btn.style.opacity='1';
+    } else {
+      throw new Error(emailResult.error || 'Email send failed');
+    }
+  } catch(emailErr) {
+    console.warn('Email API error:', emailErr.message);
+    // Fallback to mailto if API fails
+    const andrewSubject = encodeURIComponent('New Buyer Referral: '+firstName+' '+lastName);
+    const andrewBody = encodeURIComponent('Hi Andrew,\n\nNew buyer referral:\n\nName: '+firstName+' '+lastName+'\nEmail: '+email+'\nPhone: '+(phone||'N/A')+'\nLoan Type: '+(loanType||'Not specified')+'\nMessage: '+(message||'None')+'\n\nSource: Buyer Experience OS');
+    window.open('mailto:amorcos@fahmloans.com?subject='+andrewSubject+'&body='+andrewBody, '_blank');
 
-  msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32';
-  msg.innerHTML='<strong>Two emails will open:</strong><br>1. Referral to Andrew — hit send to notify him<br>2. Introduction to ' + firstName + ' — hit send to connect them with Andrew\'s pre-qualification portal';
-  btn.textContent='Sent Successfully'; btn.style.background='#2e7d32'; btn.style.opacity='1';
+    msg.style.display='block'; msg.style.background='rgba(255,152,0,0.1)'; msg.style.color='#e65100';
+    msg.innerHTML='<strong>Lead saved to FUB.</strong> Auto-email is temporarily unavailable — a mailto window has opened instead. Hit send to notify Andrew.';
+    btn.textContent='Submitted'; btn.style.background='#e65100'; btn.style.opacity='1';
+  }
+
   setTimeout(() => { btn.disabled=false; btn.textContent='Send to Andrew & Get Pre-Approval Started'; btn.style.background=''; btn.style.opacity=''; }, 12000);
 }
 </script>
