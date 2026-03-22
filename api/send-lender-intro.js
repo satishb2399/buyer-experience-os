@@ -1,6 +1,13 @@
-const { Resend } = require('resend');
+let Resend;
+try {
+  Resend = require('resend').Resend;
+} catch (e) {
+  // Fallback if named import fails
+  const mod = require('resend');
+  Resend = mod.Resend || mod.default?.Resend || mod;
+}
 
-module.exports = async function handler(req, res) {
+module.exports = async (req, res) => {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -12,6 +19,10 @@ module.exports = async function handler(req, res) {
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    return res.status(500).json({ success: false, error: 'RESEND_API_KEY not configured' });
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
