@@ -712,9 +712,9 @@ body.mode-all .sell-first-banner { display: flex; }
       <p style="color:#5a6a7a;font-size:0.95rem;margin-bottom:28px;">Estimate your monthly payment by loan type. Adjust the inputs to see how down payment, rate, and loan type affect your bottom line.</p>
       <div class="card" style="padding:0;overflow:hidden;">
         <div style="display:flex;border-bottom:2px solid rgba(27,42,74,0.08);position:relative;z-index:10;overflow:visible;" id="calcTabs">
-          <button class="calc-tab active" data-calc="conventional" type="button" onclick="switchCalcTab('conventional')">Conventional</button>
-          <button class="calc-tab" data-calc="fha" type="button" onclick="switchCalcTab('fha')">FHA</button>
-          <button class="calc-tab" data-calc="va" type="button" onclick="switchCalcTab('va')">VA</button>
+          <button class="calc-tab active" data-calc="conventional" type="button">Conventional</button>
+          <button class="calc-tab" data-calc="fha" type="button">FHA</button>
+          <button class="calc-tab" data-calc="va" type="button">VA</button>
         </div>
         <div style="padding:32px;">
           <div class="grid-2" style="gap:40px;">
@@ -1323,11 +1323,13 @@ function switchCalcTab(type) {
 }
 function parseCalcNum(id) { const el = document.getElementById(id); return el ? (parseFloat(el.value.replace(/[^0-9.]/g, '')) || 0) : 0; }
 function formatNum(n) { return Math.round(n).toLocaleString('en-US'); }
-function formatCalcInput(el) { const raw = el.value.replace(/[^0-9]/g, ''); el.value = raw ? parseInt(raw).toLocaleString('en-US') : ''; }
+function formatCalcInput(el) { const raw = el.value.replace(/[^0-9.]/g, ''); const parts = raw.split('.'); const intPart = parts[0] ? parseInt(parts[0]).toLocaleString('en-US') : ''; el.value = parts.length > 1 ? intPart + '.' + parts[1] : intPart; }
 function updateDownFromSlider(pct) { const price = parseCalcNum('calc-price'); document.getElementById('calc-down').value = formatNum(Math.round(price * (pct / 100))); document.getElementById('calc-dp-pct').textContent = pct + '%'; recalcMortgage(); }
 function recalcMortgage() {
   const price = parseCalcNum('calc-price'), down = parseCalcNum('calc-down'), rate = parseFloat(document.getElementById('calc-rate').value) || 0;
   const termYears = parseInt(document.getElementById('calc-term').value) || 30, annualTax = parseCalcNum('calc-tax'), annualIns = parseCalcNum('calc-ins');
+  // Guard: if price is zero or negative, show zeroes and return
+  if (price <= 0) { document.getElementById('calc-total').textContent='$0'; document.getElementById('calc-pi').textContent='$0'; document.getElementById('calc-tax-mo').textContent='$'+formatNum(annualTax/12); document.getElementById('calc-ins-mo').textContent='$'+formatNum(annualIns/12); document.getElementById('calc-pmi-mo').textContent='$0'; document.getElementById('calc-loan-amt').textContent='$0'; document.getElementById('calc-dp-pct').textContent='0%'; return; }
   let loanAmt = Math.max(price - down, 0);
   if (currentCalcType === 'fha') loanAmt += loanAmt * 0.0175;
   if (currentCalcType === 'va') { const dpPct = price > 0 ? (down/price)*100 : 0; let fr = 0.0215; if (dpPct >= 5 && dpPct < 10) fr = 0.015; else if (dpPct >= 10) fr = 0.0125; loanAmt += (price-down) * fr; }
@@ -1349,6 +1351,8 @@ function recalcMortgage() {
   document.getElementById('calc-pmi-mo').textContent=currentCalcType==='va'?'$0':'$'+formatNum(monthlyPMI);
   document.getElementById('calc-loan-amt').textContent='$'+formatNum(loanAmt);
   document.getElementById('calc-dp-pct').textContent=(price>0?((down/price)*100).toFixed(1):'0')+'%';
+  // Sync slider position when down payment is typed manually
+  var sliderEl = document.getElementById('calc-down-slider'); if (sliderEl) sliderEl.value = dpPct.toFixed(1);
   const labels={conventional:'Conventional',fha:'FHA',va:'VA'};
   document.getElementById('calc-loan-type-label').textContent=labels[currentCalcType]+' \u00B7 '+termYears+'-Year Fixed';
 }
@@ -1378,16 +1382,9 @@ function switchCostScenario(scenario) {
   if (total) total.textContent = s.total;
 }
 
-// Backup event listeners for calc tabs (in case onclick attrs don't fire on some browsers/devices)
+// Calc tab event listeners (single binding, no inline onclick)
 document.querySelectorAll('.calc-tab').forEach(function(tab) {
-  tab.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopPropagation();
-    var type = this.dataset.calc;
-    if (type) switchCalcTab(type);
-  });
-  // Also handle touch events for mobile
-  tab.addEventListener('touchend', function(e) {
-    e.preventDefault();
+  tab.addEventListener('click', function() {
     var type = this.dataset.calc;
     if (type) switchCalcTab(type);
   });
