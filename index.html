@@ -187,8 +187,9 @@ body.mode-all .sell-first-banner { display: flex; }
 .goal-chip.selected { background: var(--gold-light); border-color: var(--gold); color: var(--navy); font-weight: 600; }
 
 /* CALC TABS */
-.calc-tab { flex: 1; padding: 14px 20px; border: none; background: none; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; color: #8a95a5; cursor: pointer; transition: var(--transition); border-bottom: 3px solid transparent; text-align: center; }
+.calc-tab { flex: 1; padding: 14px 20px; border: none; background: none; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; color: #8a95a5; cursor: pointer; transition: var(--transition); border-bottom: 3px solid transparent; text-align: center; position: relative; z-index: 5; -webkit-tap-highlight-color: rgba(197,165,90,0.2); touch-action: manipulation; user-select: none; }
 .calc-tab:hover { color: var(--navy); background: var(--navy-light); }
+.calc-tab:active { color: var(--gold); background: var(--gold-light); }
 .calc-tab.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 700; background: var(--gold-light); }
 
 /* MICRO-CTA */
@@ -257,6 +258,37 @@ body.mode-all .sell-first-banner { display: flex; }
   .section-navy > .container > div[style*="display:flex"] { flex-direction: column; text-align: center; }
   /* Stack inline 2-column grids on mobile (except small badge grids) */
   form div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  /* Fix calc tabs on mobile - ensure tappable */
+  .calc-tab { padding: 12px 8px; font-size: 0.82rem; min-height: 48px; }
+  #calcTabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* Fix cost scenario switcher on mobile */
+  .cost-switch { font-size: 0.78rem !important; padding: 8px 14px !important; }
+  /* Ensure buttons are tappable on mobile */
+  button, .cta-btn, .goal-chip, .buyer-btn, .tab-btn, .calc-tab, .acc-trigger { min-height: 44px; }
+  /* Context cards on mobile */
+  .context-first .grid-2, .context-repeat .grid-2 { grid-template-columns: 1fr !important; }
+  /* Nav brand truncation */
+  .nav-brand { font-size: 0.95rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; }
+  /* Micro CTA mobile */
+  .micro-cta h3 { font-size: 1.15rem; }
+  .micro-cta p { font-size: 0.82rem; }
+  /* Scroll prompt mobile improvement */
+  .scroll-prompt { padding: 16px 20px; }
+  .scroll-prompt p { font-size: 0.85rem; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.5rem; }
+  .hero-sub { font-size: 0.88rem; }
+  .section { padding: 48px 16px; }
+  .buyer-btn { padding: 12px 20px; font-size: 0.82rem; }
+  .section-title { font-size: 1.4rem; }
+  .stat-num { font-size: 1.5rem; }
+  .grid-4 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { padding: 20px 12px; }
+  .card { padding: 24px 20px; }
+  .cost-switch { font-size: 0.72rem !important; padding: 6px 10px !important; }
+  .nav-brand { font-size: 0.85rem; max-width: 160px; }
+  .sticky-cta-btn { padding: 10px 16px; font-size: 0.78rem; }
 }
 </style>
 </head>
@@ -679,10 +711,10 @@ body.mode-all .sell-first-banner { display: flex; }
       <h3 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--navy);margin-bottom:8px;">Mortgage Payment Calculator</h3>
       <p style="color:#5a6a7a;font-size:0.95rem;margin-bottom:28px;">Estimate your monthly payment by loan type. Adjust the inputs to see how down payment, rate, and loan type affect your bottom line.</p>
       <div class="card" style="padding:0;overflow:hidden;">
-        <div style="display:flex;border-bottom:2px solid rgba(27,42,74,0.08);" id="calcTabs">
-          <button class="calc-tab active" data-calc="conventional" onclick="switchCalcTab('conventional')">Conventional</button>
-          <button class="calc-tab" data-calc="fha" onclick="switchCalcTab('fha')">FHA</button>
-          <button class="calc-tab" data-calc="va" onclick="switchCalcTab('va')">VA</button>
+        <div style="display:flex;border-bottom:2px solid rgba(27,42,74,0.08);position:relative;z-index:10;overflow:visible;" id="calcTabs">
+          <button class="calc-tab active" data-calc="conventional" type="button" onclick="switchCalcTab('conventional')">Conventional</button>
+          <button class="calc-tab" data-calc="fha" type="button" onclick="switchCalcTab('fha')">FHA</button>
+          <button class="calc-tab" data-calc="va" type="button" onclick="switchCalcTab('va')">VA</button>
         </div>
         <div style="padding:32px;">
           <div class="grid-2" style="gap:40px;">
@@ -787,6 +819,55 @@ body.mode-all .sell-first-banner { display: flex; }
         <div class="callout"><strong>After the showing:</strong> We debrief immediately. Rate it, note concerns, compare to others. If it's strong, we run comparable sales and discuss offer strategy before the next buyer beats you.</div>
       </div>
     </div>
+
+    <!-- First-Time Buyer Search Tips -->
+    <div class="context-first" style="margin-top:32px;">
+      <div class="card" style="border-left:4px solid #4caf50;">
+        <div class="btag btag-first" style="margin-bottom:8px;">First-Time Buyer Search Guide</div>
+        <h3 style="margin-bottom:12px;">What First-Time Buyers Commonly Miss</h3>
+        <div class="grid-2" style="gap:24px;">
+          <ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;">
+            <li><strong>HOA fees</strong> — these are on top of your mortgage. Ask about monthly fees, special assessments, and what they cover.</li>
+            <li><strong>School district boundaries</strong> — even if you don't have kids, this affects resale value significantly.</li>
+            <li><strong>Commute timing</strong> — test the drive during rush hour, not on a Sunday morning.</li>
+            <li><strong>Property taxes vary wildly</strong> — two homes priced the same in different townships can differ by $2,000+/year in tax.</li>
+          </ul>
+          <ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;">
+            <li><strong>Don't expect perfection</strong> — your first home is a stepping stone. Focus on location and structure over cosmetics.</li>
+            <li><strong>Watch out for "move-in ready" marketing</strong> — every seller calls their home move-in ready. Verify with an inspection.</li>
+            <li><strong>Budget for deferred maintenance</strong> — even newer homes need HVAC filters, gutter cleaning, and minor repairs.</li>
+            <li><strong>Ask about the age of major systems</strong> — roof, HVAC, water heater, electrical panel. Replacement costs are significant.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat Buyer Search Strategy -->
+    <div class="context-repeat" style="margin-top:32px;">
+      <div class="card" style="border-left:4px solid #1565c0;">
+        <div class="btag btag-repeat" style="margin-bottom:8px;">Repeat Buyer Strategy</div>
+        <h3 style="margin-bottom:12px;">Strategic Search for Move-Up Buyers</h3>
+        <div class="grid-2" style="gap:24px;">
+          <div>
+            <h4 style="font-size:0.9rem;font-weight:600;color:var(--navy);margin-bottom:8px;">Timing Your Search With Your Sale</h4>
+            <ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;">
+              <li><strong>Sell-first approach:</strong> Search actively only after you're under contract or listed</li>
+              <li><strong>Buy-first approach:</strong> Have bridge financing pre-arranged before touring</li>
+              <li><strong>Home sale contingency:</strong> Possible in balanced markets — less competitive</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="font-size:0.9rem;font-weight:600;color:var(--navy);margin-bottom:8px;">Evaluating as a Repeat Buyer</h4>
+            <ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;">
+              <li><strong>Compare operating costs</strong> — not just price. Taxes, HOA, utilities, maintenance.</li>
+              <li><strong>Long-term appreciation</strong> — is this a 5-year home or forever home? Investment lens matters.</li>
+              <li><strong>Leverage your experience</strong> — you know what you missed last time. Tell us.</li>
+            </ul>
+            <a href="https://selling.sbrealty.co" target="_blank" style="display:inline-flex;align-items:center;gap:8px;color:#1565c0;font-weight:600;font-size:0.88rem;text-decoration:none;margin-top:12px;">Coordinate Your Sale → Seller Experience OS &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -863,17 +944,27 @@ body.mode-all .sell-first-banner { display: flex; }
     <div class="section-badge"><span class="badge-line"></span> Module 07</div>
     <h2 class="section-title">The Real Cost of Buying — No Surprises</h2>
     <p class="section-sub">Your down payment is not your total cash needed. Understanding the full picture prevents sticker shock.</p>
-    <div class="card" style="margin-bottom:32px;">
+    <!-- DEFAULT / ALL: Conventional 5% down example -->
+    <div class="card cost-example-default" style="margin-bottom:32px;">
       <h3 style="margin-bottom:8px;">Estimated Cash-to-Close Breakdown</h3>
-      <p style="font-size:0.85rem;color:#8a95a5;margin-bottom:24px;">Example: $320,000 purchase, conventional financing, 5% down</p>
-      <div class="cost-bar">
-        <div class="cost-row"><div class="cost-label">Down Payment (5%)</div><div class="cost-visual"><div class="cost-fill navy" style="width:62%;">$16,000</div></div><div class="cost-amount">$16,000</div></div>
+      <p class="cost-scenario-label" style="font-size:0.85rem;color:#8a95a5;margin-bottom:24px;">Example: $320,000 purchase, conventional financing, 5% down</p>
+      <div class="cost-bar" id="costBarMain">
+        <div class="cost-row"><div class="cost-label">Down Payment (<span class="cost-dp-pct">5%</span>)</div><div class="cost-visual"><div class="cost-fill navy" style="width:62%;" id="costFillDP">$16,000</div></div><div class="cost-amount" id="costAmtDP">$16,000</div></div>
         <div class="cost-row"><div class="cost-label">Closing Costs (est.)</div><div class="cost-visual"><div class="cost-fill gold" style="width:38%;">$9,600</div></div><div class="cost-amount">$8,000 – $11,200</div></div>
         <div class="cost-row"><div class="cost-label">Prepaid Items</div><div class="cost-visual"><div class="cost-fill charcoal" style="width:22%;">$3,500</div></div><div class="cost-amount">$3,000 – $4,000</div></div>
         <div class="cost-row"><div class="cost-label">Inspection Costs</div><div class="cost-visual"><div class="cost-fill gold" style="width:4%;min-width:48px;">$500</div></div><div class="cost-amount">$400 – $700+</div></div>
-        <div class="cost-row" style="margin-top:8px;padding-top:12px;border-top:2px solid var(--gold);"><div class="cost-label" style="font-weight:700;color:var(--navy);font-size:0.95rem;">Estimated Total Cash Needed</div><div class="cost-visual" style="background:transparent;"></div><div class="cost-amount" style="font-size:1rem;color:var(--navy);font-weight:700;">$27,400 – $31,900</div></div>
+        <div class="cost-row" style="margin-top:8px;padding-top:12px;border-top:2px solid var(--gold);"><div class="cost-label" style="font-weight:700;color:var(--navy);font-size:0.95rem;">Estimated Total Cash Needed</div><div class="cost-visual" style="background:transparent;"></div><div class="cost-amount" id="costTotal" style="font-size:1rem;color:var(--navy);font-weight:700;">$27,400 – $31,900</div></div>
       </div>
       <p style="font-size:0.82rem;color:#8a95a5;margin-top:16px;">Note: Your earnest money deposit is included in and applied toward these figures at settlement — it's not additional.</p>
+
+      <!-- Mode switcher for cost examples -->
+      <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(27,42,74,0.08);display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:0.78rem;font-weight:600;color:var(--navy);padding:8px 0;">See example for:</span>
+        <button type="button" class="goal-chip cost-switch selected" data-scenario="conv5" onclick="switchCostScenario('conv5')">Conventional 5%</button>
+        <button type="button" class="goal-chip cost-switch" data-scenario="fha" onclick="switchCostScenario('fha')">FHA 3.5%</button>
+        <button type="button" class="goal-chip cost-switch" data-scenario="va" onclick="switchCostScenario('va')">VA 0%</button>
+        <button type="button" class="goal-chip cost-switch" data-scenario="conv20" onclick="switchCostScenario('conv20')">Conventional 20%</button>
+      </div>
     </div>
     <div class="grid-2" style="gap:32px;">
       <div class="card">
@@ -997,6 +1088,35 @@ body.mode-all .sell-first-banner { display: flex; }
     <div class="section-badge"><span class="badge-line"></span> Module 12</div>
     <h2 class="section-title">Questions Every Buyer Asks — Honest Answers</h2>
     <p class="section-sub">No hedging, no jargon. Clear answers to the questions we hear most.</p>
+
+    <!-- First-Time Buyer Priority FAQ -->
+    <div class="context-first" style="margin-bottom:32px;">
+      <div class="card" style="border:2px solid rgba(76,175,80,0.2);background:rgba(76,175,80,0.02);">
+        <div class="btag btag-first" style="margin-bottom:8px;">First-Time Buyer Top Questions</div>
+        <h3 style="margin-bottom:16px;">The Questions Every First-Time Buyer Asks First</h3>
+        <div class="accordion" id="faqFirst">
+          <div class="acc-item"><button class="acc-trigger"><span>I have student loans — can I still buy a home?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Yes. Lenders factor student loans into your debt-to-income ratio, but they don't disqualify you. FHA loans are particularly flexible here. Your lender will show you how your loans affect your buying power.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>Is 3.5% really enough for a down payment?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>For FHA, yes — 3.5% is the minimum with a 580+ credit score. Conventional loans can start at 3% for first-time buyers. And some PA programs offer additional down payment assistance. You do NOT need 20%.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>How do I know how much house I can afford?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Your lender calculates this based on income, debt, credit, and down payment. A general guideline: your total housing payment (mortgage, tax, insurance) should stay below 28-33% of your gross monthly income. But your lender gives you a precise number.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>My parents want to help with the down payment — is that allowed?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Yes, gift funds are allowed on most loan types. Your lender will need a gift letter and documentation of the transfer. The key rule: it must be a true gift with no repayment expectation.</p></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat Buyer Priority FAQ -->
+    <div class="context-repeat" style="margin-bottom:32px;">
+      <div class="card" style="border:2px solid rgba(21,101,192,0.2);background:rgba(21,101,192,0.02);">
+        <div class="btag btag-repeat" style="margin-bottom:8px;">Move-Up Buyer Top Questions</div>
+        <h3 style="margin-bottom:16px;">The Questions Every Repeat Buyer Asks First</h3>
+        <div class="accordion" id="faqRepeat">
+          <div class="acc-item"><button class="acc-trigger"><span>Should I sell my current home before buying?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>It depends on your financial position and risk tolerance. Selling first gives you certainty on your equity and cash position, but you may need temporary housing. Buying first requires carrying two mortgages or bridge financing. We help you evaluate the best sequence for your situation.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>Can I use my equity for the next down payment?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Yes — your equity from the sale of your current home is the most common source for your next down payment. If you're buying before selling, you may need a HELOC, bridge loan, or savings. Your lender models all scenarios.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>What is a rent-back agreement?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>You sell your home but remain in it (typically paying the buyer a per-diem rent) for 30-60 days while you close on your next home. This bridges the gap between selling and moving into your new purchase.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>Will a home sale contingency hurt my offer?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>In competitive markets, yes — sellers prefer clean offers without sale contingencies. In balanced markets, it's negotiable. If you're already under contract to sell, the contingency is much stronger than if you haven't listed yet.</p></div></div></div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid-2" style="gap:24px;">
       <div class="accordion" id="faqAccordion1">
         <div class="acc-item"><button class="acc-trigger"><span>Do I need to be pre-approved before seeing homes?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>We strongly recommend it. Pre-approval tells you what you can afford, strengthens your offer, and prevents heartbreak. Most sellers won't consider an offer without one.</p></div></div></div>
@@ -1060,11 +1180,11 @@ body.mode-all .sell-first-banner { display: flex; }
       this.classList.add('active');
       const mode = this.dataset.mode;
       document.body.className = 'mode-' + mode;
-      // Switch calculator default based on buyer type
+      // Switch calculator + cost example defaults based on buyer type
       if (typeof switchCalcTab === 'function') {
-        if (mode === 'first') switchCalcTab('fha');
-        else if (mode === 'repeat') switchCalcTab('conventional');
-        else switchCalcTab('conventional');
+        if (mode === 'first') { switchCalcTab('fha'); if (typeof switchCostScenario === 'function') switchCostScenario('fha'); }
+        else if (mode === 'repeat') { switchCalcTab('conventional'); if (typeof switchCostScenario === 'function') switchCostScenario('conv20'); }
+        else { switchCalcTab('conventional'); if (typeof switchCostScenario === 'function') switchCostScenario('conv5'); }
       }
     });
   });
@@ -1158,13 +1278,16 @@ body.mode-all .sell-first-banner { display: flex; }
   // ===== FADE-IN ON SCROLL =====
   const calcCard = document.getElementById('calcTabs') ? document.getElementById('calcTabs').closest('.card') : null;
   const lenderCard = document.getElementById('lenderForm') ? document.getElementById('lenderForm').closest('.card') : null;
+  const leadFormCard = document.getElementById('leadForm') ? document.getElementById('leadForm').closest('.card') : null;
   const fadeEls = document.querySelectorAll('.card, .stat-card, .timeline-item');
   const fadeObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   fadeEls.forEach(el => {
-    // Skip calculator and lender cards — they need to be fully interactive immediately
-    if (el === calcCard || el === lenderCard) return;
+    // Skip interactive cards — they need to be fully interactive immediately
+    if (el === calcCard || el === lenderCard || el === leadFormCard) return;
+    // Skip any card containing form inputs or calc tabs
+    if (el.querySelector('form, .calc-tab, input, select, textarea')) return;
     el.style.opacity = '0'; el.style.transform = 'translateY(16px)'; el.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; fadeObs.observe(el);
   });
 
@@ -1232,6 +1355,43 @@ function recalcMortgage() {
 
 // Init calculator on page load
 recalcMortgage();
+
+// ==================== COST SCENARIO SWITCHER ====================
+function switchCostScenario(scenario) {
+  document.querySelectorAll('.cost-switch').forEach(function(b) { b.classList.toggle('selected', b.dataset.scenario === scenario); });
+  var label = document.querySelector('.cost-scenario-label');
+  var fillDP = document.getElementById('costFillDP');
+  var amtDP = document.getElementById('costAmtDP');
+  var total = document.getElementById('costTotal');
+  var dpPct = document.querySelector('.cost-dp-pct');
+  var scenarios = {
+    conv5:  { label: 'Example: $320,000 purchase, conventional financing, 5% down', pct: '5%', dp: '$16,000', dpW: '62%', total: '$27,400 – $31,900' },
+    fha:    { label: 'Example: $320,000 purchase, FHA financing, 3.5% down', pct: '3.5%', dp: '$11,200', dpW: '44%', total: '$23,600 – $27,400' },
+    va:     { label: 'Example: $320,000 purchase, VA financing, 0% down', pct: '0%', dp: '$0', dpW: '2%', total: '$12,400 – $16,400' },
+    conv20: { label: 'Example: $320,000 purchase, conventional financing, 20% down (no PMI)', pct: '20%', dp: '$64,000', dpW: '95%', total: '$75,400 – $79,900' }
+  };
+  var s = scenarios[scenario] || scenarios.conv5;
+  if (label) label.textContent = s.label;
+  if (dpPct) dpPct.textContent = s.pct;
+  if (fillDP) { fillDP.style.width = s.dpW; fillDP.textContent = s.dp; }
+  if (amtDP) amtDP.textContent = s.dp;
+  if (total) total.textContent = s.total;
+}
+
+// Backup event listeners for calc tabs (in case onclick attrs don't fire on some browsers/devices)
+document.querySelectorAll('.calc-tab').forEach(function(tab) {
+  tab.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    var type = this.dataset.calc;
+    if (type) switchCalcTab(type);
+  });
+  // Also handle touch events for mobile
+  tab.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    var type = this.dataset.calc;
+    if (type) switchCalcTab(type);
+  });
+});
 
 // ==================== FUB API CONFIG ====================
 const FUB_API_KEY = 'fka_0m4cPTFKj1TOgwzvydjVvnLsVHUwjaYx4n';
