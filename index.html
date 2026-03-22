@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buyer Experience OS — The Satish Brahmbhatt Real Estate Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B2A4A;
+  --gold: #C5A55A;
+  --charcoal: #2D2D2D;
+  --white: #FFFFFF;
+  --cream: #F5F0E8;
+  --light-navy: #243558;
+  --dark-gold: #B8973F;
+  --gold-light: rgba(197,165,90,0.12);
+  --gold-border: rgba(197,165,90,0.3);
+  --navy-light: rgba(27,42,74,0.06);
+  --shadow-sm: 0 1px 3px rgba(27,42,74,0.08);
+  --shadow-md: 0 4px 12px rgba(27,42,74,0.1);
+  --shadow-lg: 0 8px 30px rgba(27,42,74,0.12);
+  --shadow-xl: 0 12px 40px rgba(27,42,74,0.15);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-sans); color: var(--charcoal);
+  background: var(--white); line-height: 1.7; -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(27,42,74,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(197,165,90,0.2); }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+.nav-brand { font-family: var(--font-serif); color: var(--gold); font-size: 1.1rem; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }
+.nav-brand span { color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; display: block; font-family: var(--font-sans); }
+.nav-links { display: flex; gap: 6px; align-items: center; overflow-x: auto; }
+.nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.78rem; font-weight: 500; padding: 6px 12px; border-radius: var(--radius-sm); transition: var(--transition); white-space: nowrap; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); background: rgba(197,165,90,0.1); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; width: 32px; height: 32px; position: relative; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--gold); position: absolute; left: 5px; transition: var(--transition); }
+.nav-toggle span:nth-child(1) { top: 9px; } .nav-toggle span:nth-child(2) { top: 15px; } .nav-toggle span:nth-child(3) { top: 21px; }
+
+/* HERO */
+.hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--navy) 0%, #0f1a2e 50%, var(--navy) 100%); position: relative; overflow: hidden; padding: 100px 24px 60px; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(197,165,90,0.06) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(197,165,90,0.04) 0%, transparent 50%); }
+.hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: linear-gradient(to top, var(--white), transparent); }
+.hero-inner { max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(197,165,90,0.12); border: 1px solid rgba(197,165,90,0.25); padding: 8px 20px; border-radius: 50px; font-size: 0.78rem; font-weight: 600; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 32px; }
+.hero h1 { font-family: var(--font-serif); color: var(--white); font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 600; line-height: 1.2; margin-bottom: 20px; }
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-sub { color: rgba(255,255,255,0.7); font-size: 1.1rem; max-width: 640px; margin: 0 auto 40px; line-height: 1.8; font-weight: 300; }
+.hero-name { color: var(--gold); font-family: var(--font-serif); font-style: italic; }
+.buyer-selector { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.buyer-btn { padding: 14px 28px; border-radius: var(--radius-md); border: 2px solid rgba(197,165,90,0.3); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.8); font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: var(--transition); }
+.buyer-btn:hover { border-color: var(--gold); color: var(--white); background: rgba(197,165,90,0.1); }
+.buyer-btn.active { border-color: var(--gold); background: rgba(197,165,90,0.15); color: var(--gold); font-weight: 600; }
+.buyer-btn small { display: block; font-size: 0.72rem; opacity: 0.7; margin-top: 4px; font-weight: 400; }
+
+/* SECTIONS */
+.section { padding: 80px 24px; position: relative; scroll-margin-top: 72px; }
+.section-cream { background: var(--cream); }
+.section-navy { background: var(--navy); color: var(--white); }
+.section-navy .section-sub { color: rgba(255,255,255,0.7); }
+.container { max-width: 1100px; margin: 0 auto; }
+.section-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+.section-badge .badge-line { width: 24px; height: 2px; background: var(--gold); }
+.section-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 600; line-height: 1.25; margin-bottom: 12px; color: var(--navy); }
+.section-navy .section-title { color: var(--white); }
+.section-sub { color: #5a6a7a; font-size: 1.05rem; line-height: 1.7; max-width: 680px; margin-bottom: 48px; font-weight: 300; }
+
+/* CARDS */
+.card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid rgba(27,42,74,0.08); padding: 32px; transition: var(--transition); }
+.card:hover { box-shadow: var(--shadow-md); border-color: var(--gold-border); }
+.card-icon { width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--gold-light); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 16px; }
+.card h3 { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+.card p { color: #5a6a7a; font-size: 0.92rem; line-height: 1.7; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* TABS */
+.tab-nav { display: flex; gap: 4px; margin-bottom: 32px; border-bottom: 2px solid rgba(27,42,74,0.08); }
+.tab-btn { padding: 12px 24px; border: none; background: none; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 500; color: #8a95a5; cursor: pointer; transition: var(--transition); border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
+.tab-btn:hover { color: var(--navy); }
+.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 600; }
+.tab-panel { display: none; animation: fadeUp 0.4s ease; }
+.tab-panel.active { display: block; }
+
+/* ACCORDION */
+.accordion { display: flex; flex-direction: column; gap: 8px; }
+.acc-item { border: 1px solid rgba(27,42,74,0.08); border-radius: var(--radius-md); overflow: hidden; transition: var(--transition); }
+.acc-item.open { border-color: var(--gold-border); box-shadow: var(--shadow-sm); }
+.acc-trigger { width: 100%; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: none; border: none; cursor: pointer; font-family: var(--font-sans); font-size: 0.95rem; font-weight: 500; color: var(--navy); text-align: left; transition: var(--transition); }
+.acc-trigger:hover { color: var(--gold); }
+.acc-icon { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--gold); transition: transform 0.3s ease; }
+.acc-item.open .acc-icon { transform: rotate(45deg); }
+.acc-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.acc-content { padding: 0 24px 24px; color: #5a6a7a; font-size: 0.92rem; line-height: 1.8; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 48px; }
+.timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), rgba(197,165,90,0.2)); }
+.timeline-item { position: relative; padding-bottom: 40px; cursor: pointer; }
+.timeline-dot { position: absolute; left: -39px; top: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--white); border: 3px solid var(--gold); transition: var(--transition); z-index: 2; }
+.timeline-item.active .timeline-dot, .timeline-item:hover .timeline-dot { background: var(--gold); }
+.timeline-num { font-size: 0.7rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+.timeline-title { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.timeline-desc { color: #5a6a7a; font-size: 0.9rem; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.timeline-item.active .timeline-desc { max-height: 400px; }
+
+/* CHECKLIST */
+.checklist { display: flex; flex-direction: column; gap: 6px; }
+.check-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); border: 1px solid transparent; }
+.check-item:hover { background: var(--navy-light); }
+.check-item.checked { opacity: 0.6; }
+.check-item.checked .check-label { text-decoration: line-through; }
+.check-box { width: 22px; height: 22px; flex-shrink: 0; border-radius: 4px; border: 2px solid rgba(27,42,74,0.25); display: flex; align-items: center; justify-content: center; transition: var(--transition); margin-top: 1px; font-size: 0.7rem; color: transparent; }
+.check-item.checked .check-box { background: var(--gold); border-color: var(--gold); color: var(--white); }
+.check-label { font-size: 0.92rem; color: var(--charcoal); line-height: 1.5; }
+.check-cat { font-size: 0.72rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 24px; margin-bottom: 8px; padding-left: 16px; }
+.check-cat:first-child { margin-top: 0; }
+.progress-wrap { margin-bottom: 32px; }
+.progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.85rem; font-weight: 500; color: var(--navy); }
+.progress-bar { height: 8px; background: rgba(27,42,74,0.08); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--dark-gold)); border-radius: 4px; transition: width 0.5s ease; width: 0%; }
+
+/* COST BARS */
+.cost-bar { display: flex; flex-direction: column; gap: 12px; }
+.cost-row { display: flex; align-items: center; gap: 16px; }
+.cost-label { width: 180px; font-size: 0.88rem; font-weight: 500; color: var(--navy); flex-shrink: 0; }
+.cost-visual { flex: 1; height: 32px; background: rgba(27,42,74,0.04); border-radius: var(--radius-sm); overflow: hidden; }
+.cost-fill { height: 100%; border-radius: var(--radius-sm); transition: width 0.6s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: 0.78rem; font-weight: 600; color: var(--white); }
+.cost-fill.navy { background: var(--navy); } .cost-fill.gold { background: var(--gold); } .cost-fill.charcoal { background: var(--charcoal); }
+.cost-amount { width: 100px; text-align: right; font-size: 0.88rem; font-weight: 600; color: var(--charcoal); flex-shrink: 0; }
+
+/* STAT CARDS */
+.stat-card { text-align: center; padding: 32px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(197,165,90,0.15); border-radius: var(--radius-lg); }
+.stat-num { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+.stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-weight: 400; }
+
+/* BUYER TYPE TAGS */
+.btag { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; letter-spacing: 0.04em; margin-bottom: 8px; }
+.btag-first { background: rgba(76,175,80,0.1); color: #2e7d32; border: 1px solid rgba(76,175,80,0.2); }
+.btag-repeat { background: rgba(33,150,243,0.1); color: #1565c0; border: 1px solid rgba(33,150,243,0.2); }
+
+/* CTA BUTTONS */
+.cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; border-radius: var(--radius-md); font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: var(--transition); cursor: pointer; border: none; }
+.cta-btn-gold { background: var(--gold); color: var(--navy); }
+.cta-btn-gold:hover { background: var(--dark-gold); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.cta-btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold); }
+.cta-btn-outline:hover { background: rgba(197,165,90,0.1); }
+.cta-btn-white { background: var(--white); color: var(--navy); }
+.cta-btn-white:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+
+/* CONTEXTUAL CONTENT */
+.context-first { display: none; } .context-repeat { display: none; } .context-all-only { display: none; }
+body.mode-first .context-first { display: block; } body.mode-first .context-repeat { display: none; }
+body.mode-repeat .context-repeat { display: block; } body.mode-repeat .context-first { display: none; }
+body.mode-all .context-first, body.mode-all .context-repeat { display: block; }
+body.mode-all .context-all-only { display: block; }
+/* Hero mode-specific text */
+.hero-sub-default { display: block; } .hero-sub-first { display: none; } .hero-sub-repeat { display: none; }
+body.mode-first .hero-sub-default { display: none; } body.mode-first .hero-sub-first { display: block; } body.mode-first .hero-sub-repeat { display: none; }
+body.mode-repeat .hero-sub-default { display: none; } body.mode-repeat .hero-sub-first { display: none; } body.mode-repeat .hero-sub-repeat { display: block; }
+/* Sell-first banner */
+.sell-first-banner { display: none; }
+body.mode-repeat .sell-first-banner { display: flex; }
+body.mode-all .sell-first-banner { display: flex; }
+
+/* CALLOUT */
+.callout { padding: 20px 24px; border-radius: var(--radius-md); border-left: 4px solid var(--gold); background: var(--gold-light); margin: 24px 0; font-size: 0.9rem; line-height: 1.7; color: var(--charcoal); }
+.callout strong { color: var(--navy); }
+.callout-navy { border-left-color: var(--navy); background: var(--navy-light); }
+.disclaimer { padding: 20px 24px; background: rgba(27,42,74,0.03); border-radius: var(--radius-md); border: 1px solid rgba(27,42,74,0.06); font-size: 0.82rem; color: #7a8595; line-height: 1.7; margin-top: 32px; }
+
+/* GOAL CHIPS */
+.goal-chip { padding: 10px 18px; border-radius: 50px; border: 1.5px solid rgba(27,42,74,0.15); background: var(--white); font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--charcoal); cursor: pointer; transition: var(--transition); }
+.goal-chip:hover { border-color: var(--gold); color: var(--navy); }
+.goal-chip.selected { background: var(--gold-light); border-color: var(--gold); color: var(--navy); font-weight: 600; }
+
+/* CALC TABS */
+.calc-tab { flex: 1; padding: 14px 20px; border: none; background: none; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; color: #8a95a5; cursor: pointer; transition: var(--transition); border-bottom: 3px solid transparent; text-align: center; }
+.calc-tab:hover { color: var(--navy); background: var(--navy-light); }
+.calc-tab.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 700; background: var(--gold-light); }
+
+/* MICRO-CTA */
+.micro-cta { padding: 48px 24px; text-align: center; background: linear-gradient(135deg, var(--navy) 0%, var(--light-navy) 100%); position: relative; overflow: hidden; }
+.micro-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(197,165,90,0.06) 0%, transparent 70%); }
+.micro-cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+.micro-cta h3 { font-family: var(--font-serif); color: var(--white); font-size: 1.4rem; margin-bottom: 8px; }
+.micro-cta p { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 20px; }
+
+/* STICKY CTA */
+.sticky-cta { position: fixed; bottom: 24px; right: 24px; z-index: 999; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; pointer-events: none; }
+.sticky-cta.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+.sticky-cta-btn { display: flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--gold); color: var(--navy); border: none; border-radius: 50px; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 20px rgba(197,165,90,0.4); transition: var(--transition); }
+.sticky-cta-btn:hover { background: var(--dark-gold); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(197,165,90,0.5); }
+.sticky-cta-btn .pulse { width: 8px; height: 8px; border-radius: 50%; background: #4caf50; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* SCROLL PROMPT */
+.scroll-prompt { position: fixed; bottom: 0; left: 0; right: 0; z-index: 998; transform: translateY(100%); transition: transform 0.5s ease; background: var(--white); border-top: 2px solid var(--gold); box-shadow: 0 -4px 20px rgba(0,0,0,0.1); padding: 20px 24px; }
+.scroll-prompt.visible { transform: translateY(0); }
+.scroll-prompt-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.scroll-prompt p { font-size: 0.92rem; color: var(--navy); font-weight: 500; }
+.scroll-prompt-close { background: none; border: none; font-size: 1.2rem; color: #8a95a5; cursor: pointer; padding: 4px 8px; }
+
+/* FORM INPUTS */
+.form-input { padding: 12px 14px; border: 1px solid rgba(27,42,74,0.15); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 0.88rem; outline: none; transition: var(--transition); width: 100%; }
+.form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(197,165,90,0.1); }
+
+/* FOOTER */
+.footer { background: var(--navy); padding: 40px 24px; text-align: center; border-top: 1px solid rgba(197,165,90,0.15); }
+.footer-brand { font-family: var(--font-serif); color: var(--gold); font-size: 1.1rem; margin-bottom: 8px; }
+.footer-text { color: rgba(255,255,255,0.5); font-size: 0.82rem; line-height: 1.6; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } .grid-4 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 768px) {
+  .nav-links { display: none; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 16px; border-bottom: 1px solid rgba(197,165,90,0.2); }
+  .nav-toggle { display: block; } .section { padding: 60px 20px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .buyer-selector { flex-direction: column; align-items: center; } .buyer-btn { width: 100%; max-width: 300px; }
+  .cost-row { flex-direction: column; align-items: flex-start; gap: 4px; } .cost-label { width: auto; } .cost-amount { width: auto; text-align: left; }
+  .tab-nav { overflow-x: auto; } .timeline { padding-left: 36px; } .timeline::before { left: 12px; } .timeline-dot { left: -30px; width: 16px; height: 16px; }
+  .lender-card-grid { grid-template-columns: 1fr !important; }
+  .sticky-cta { bottom: 16px; right: 16px; } .sticky-cta-btn { padding: 12px 20px; font-size: 0.82rem; }
+  .scroll-prompt-inner { flex-direction: column; text-align: center; }
+  .micro-cta { padding: 36px 20px; }
+  /* Banner stacking */
+  .sell-first-banner > div > div, .context-first > div > div { flex-direction: column; text-align: center; }
+  .sell-first-banner .cta-btn, .context-first .cta-btn { width: 100%; justify-content: center; }
+  /* Pre-qual vs pre-approval */
+  .section-cream .card > div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+  /* Hero text sizing */
+  .hero h1 { font-size: 1.8rem; }
+  .hero-sub { font-size: 0.95rem; }
+  /* Stat cards */
+  .stat-num { font-size: 1.8rem; }
+  .grid-4 { grid-template-columns: 1fr 1fr; gap: 12px; }
+  /* Calculator results */
+  #calc-total { font-size: 2.2rem; }
+  /* Urgency callout */
+  .section-navy > .container > div[style*="display:flex"] { flex-direction: column; text-align: center; }
+  /* Stack inline 2-column grids on mobile (except small badge grids) */
+  form div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body class="mode-all">
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">The Satish Brahmbhatt<span>Real Estate Group</span></div>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero">Home</a>
+      <a href="#credibility">Why Us</a>
+      <a href="#goals">Your Goals</a>
+      <a href="#representation">Representation</a>
+      <a href="#financing">Financing</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#search">Strategy</a>
+      <a href="#offers">Offers</a>
+      <a href="#costs">Costs</a>
+      <a href="#tracker">Tracker</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <button class="sticky-cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    <span class="pulse"></span> Book Strategy Session
+  </button>
+</div>
+
+<!-- SCROLL PROMPT -->
+<div class="scroll-prompt" id="scrollPrompt">
+  <div class="scroll-prompt-inner">
+    <p>Ready to talk? A 15-minute strategy call clarifies everything.</p>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <a href="#contact" class="cta-btn cta-btn-gold" style="padding:10px 24px;font-size:0.85rem;" onclick="closeScrollPrompt()">Book a Call</a>
+      <button class="scroll-prompt-close" onclick="closeScrollPrompt()">&times;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span style="width:16px;height:2px;background:var(--gold);display:inline-block;"></span> Buyer Experience OS</div>
+    <h1>Your Home Purchase,<br><em>Guided From Start to Finish</em></h1>
+    <p class="hero-sub hero-sub-default">A structured, transparent approach to buying a home in Central Pennsylvania. Built to protect your interests, reduce stress, and put you in the strongest position from first conversation to closing day.</p>
+    <p class="hero-sub hero-sub-first">Buying your first home is one of the biggest financial decisions you'll make. This guide walks you through every step — from understanding financing to making your first offer — so you feel informed, prepared, and confident instead of overwhelmed.</p>
+    <p class="hero-sub hero-sub-repeat">You've bought before — but the market has changed, your goals have evolved, and the strategy needs to be different this time. Whether you're selling while buying, leveraging equity, or upgrading your lifestyle, this platform is built for your next move.</p>
+    <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin-bottom:28px;">Select your buyer profile to personalize your experience:</p>
+    <div class="buyer-selector">
+      <button class="buyer-btn active" data-mode="all">Full Overview<small>See everything</small></button>
+      <button class="buyer-btn" data-mode="first">First-Time Buyer<small>New to home buying</small></button>
+      <button class="buyer-btn" data-mode="repeat">Move-Up / Repeat Buyer<small>Buying again</small></button>
+    </div>
+    <a href="#credibility" class="cta-btn cta-btn-gold">Begin Your Guided Experience</a>
+  </div>
+</section>
+
+<!-- ==================== MODULE 1: CREDIBILITY (MOVED UP) ==================== -->
+<section class="section section-navy" id="credibility">
+  <div class="container">
+    <div class="section-badge" style="color:var(--gold);"><span class="badge-line"></span> Why Buyers Choose Us</div>
+    <h2 class="section-title" style="color:var(--white);">A Team Built to Protect Your Purchase</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.7);">Before we explain the process, you should know who's guiding you through it. Results and structure — not promises.</p>
+
+    <div class="grid-4" style="margin-bottom:40px;">
+      <div class="stat-card"><div class="stat-num">110+</div><div class="stat-label">Transactions Closed</div></div>
+      <div class="stat-card"><div class="stat-num">$35M+</div><div class="stat-label">Volume Managed</div></div>
+      <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">States Licensed (PA + MD)</div></div>
+      <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Dedicated Transaction Coordinators</div></div>
+    </div>
+
+    <div class="grid-3" style="gap:24px;margin-bottom:32px;">
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);">
+        <h3 style="color:var(--gold);">Central PA Market Experts</h3>
+        <p style="color:rgba(255,255,255,0.75);">Carlisle to Hershey, Harrisburg to York, and into Maryland. We know neighborhoods, school boundaries, flood maps, development plans, and tax assessment patterns — not just listings.</p>
+      </div>
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);">
+        <h3 style="color:var(--gold);">Lender Network</h3>
+        <p style="color:rgba(255,255,255,0.75);">Our preferred lenders handle conventional, FHA, VA, and down payment assistance programs. They move fast, communicate clearly, and understand how financing impacts your offer strategy.</p>
+      </div>
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);">
+        <h3 style="color:var(--gold);">Structure That Protects You</h3>
+        <p style="color:rgba(255,255,255,0.75);">Dedicated TCs managing every deadline and document. Agents focused on market analysis and negotiation. Daily monitoring on your search. When you call, someone answers. Systems protect transactions.</p>
+      </div>
+    </div>
+
+    <!-- Market urgency callout -->
+    <div style="background:rgba(197,165,90,0.08);border:1px solid rgba(197,165,90,0.2);border-radius:var(--radius-lg);padding:24px 32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div style="font-size:2rem;">&#9889;</div>
+      <div style="flex:1;min-width:280px;">
+        <p style="color:var(--gold);font-weight:600;font-size:0.95rem;margin-bottom:4px;">In Central PA, well-priced homes move fast.</p>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;">Pre-approved buyers with a defined strategy and a prepared team behind them win more offers and close with fewer surprises. Preparation is the competitive advantage.</p>
+      </div>
+      <a href="#goals" class="cta-btn cta-btn-gold" style="padding:12px 24px;font-size:0.85rem;white-space:nowrap;">Start Your Strategy</a>
+    </div>
+  </div>
+</section>
+
+<!-- FIRST-TIME BUYER WELCOME CARD -->
+<div class="context-first" style="padding:0 24px;">
+  <div style="max-width:1100px;margin:0 auto;padding:28px 32px;background:linear-gradient(135deg,#1b5e20 0%,#2e7d32 100%);border-radius:0 0 var(--radius-lg) var(--radius-lg);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+    <div style="font-size:2.2rem;">&#127919;</div>
+    <div style="flex:1;min-width:280px;">
+      <p style="color:#a5d6a7;font-weight:700;font-size:1rem;margin-bottom:4px;">Welcome, First-Time Buyer</p>
+      <p style="color:rgba(255,255,255,0.8);font-size:0.88rem;line-height:1.6;">You don't need perfect credit, a 20% down payment, or all the answers right now. What you need is the right process and the right team. This platform covers everything — financing options (including programs designed specifically for first-time buyers), what paperwork to expect, how offers work, and what every dollar goes toward. Start with your goals below.</p>
+    </div>
+    <a href="#goals" class="cta-btn" style="padding:13px 28px;font-size:0.88rem;white-space:nowrap;background:var(--white);color:#1b5e20;font-weight:700;border-radius:var(--radius-md);">Submit Your Buyer Profile</a>
+  </div>
+</div>
+
+<!-- SELL-FIRST BANNER (Repeat Buyers) -->
+<div class="sell-first-banner" style="padding:0 24px;">
+  <div style="max-width:1100px;margin:0 auto;padding:28px 32px;background:linear-gradient(135deg,#1a3a6b 0%,var(--navy) 100%);border-radius:0 0 var(--radius-lg) var(--radius-lg);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+    <div style="font-size:2.2rem;">&#127968;&#8594;&#127968;</div>
+    <div style="flex:1;min-width:280px;">
+      <p style="color:var(--gold);font-weight:700;font-size:1rem;margin-bottom:4px;">Need to Sell Your Current Home First?</p>
+      <p style="color:rgba(255,255,255,0.7);font-size:0.88rem;line-height:1.6;">If you need to sell before buying — or want to coordinate both transactions — we've built a complete Seller Experience OS to guide that process. Get your home market-ready, priced right, and sold on your timeline.</p>
+    </div>
+    <a href="https://selling.sbrealty.co" target="_blank" class="cta-btn cta-btn-gold" style="padding:13px 28px;font-size:0.88rem;white-space:nowrap;">Visit Our Seller Platform &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== MODULE 2: GOALS + LEAD CAPTURE ==================== -->
+<section class="section section-cream" id="goals">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> Module 01</div>
+    <h2 class="section-title">Tell Us What You're Looking For</h2>
+    <p class="section-sub">This shapes every recommendation we make. Fill in your contact info and preferences — our team reviews this within one business day and builds your custom strategy.</p>
+
+    <div class="grid-2" style="gap:32px;">
+      <!-- Left: Lead Capture Form -->
+      <div>
+        <div class="card" style="border:2px solid var(--gold-border);margin-bottom:20px;">
+          <h3 style="margin-bottom:16px;color:var(--gold);">Your Information</h3>
+          <form id="leadForm" onsubmit="return false;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+              <input type="text" id="lead-first" placeholder="First Name *" required class="form-input">
+              <input type="text" id="lead-last" placeholder="Last Name *" required class="form-input">
+            </div>
+            <input type="email" id="lead-email" placeholder="Email *" required class="form-input" style="margin-bottom:10px;">
+            <input type="tel" id="lead-phone" placeholder="Phone *" required class="form-input" style="margin-bottom:10px;">
+            <select id="lead-buyertype" class="form-input" style="margin-bottom:10px;color:var(--charcoal);">
+              <option value="">How would you describe yourself?</option>
+              <option value="First-Time Buyer">First-Time Home Buyer</option>
+              <option value="Move-Up Buyer">Move-Up / Repeat Buyer</option>
+              <option value="Relocating">Relocating to the Area</option>
+              <option value="Investor">Real Estate Investor</option>
+              <option value="Downsizing">Downsizing</option>
+            </select>
+          </form>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3 style="margin-bottom:16px;">Your Timeline</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;" id="timelineSelect">
+            <button class="goal-chip" data-val="0-3">0 – 3 Months</button>
+            <button class="goal-chip" data-val="3-6">3 – 6 Months</button>
+            <button class="goal-chip" data-val="6-12">6 – 12 Months</button>
+            <button class="goal-chip" data-val="exploring">Just Exploring</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3 style="margin-bottom:16px;">Property Type</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;" id="propSelect">
+            <button class="goal-chip" data-val="single">Single Family</button>
+            <button class="goal-chip" data-val="townhome">Townhome</button>
+            <button class="goal-chip" data-val="condo">Condo</button>
+            <button class="goal-chip" data-val="multi">Multi-Unit</button>
+            <button class="goal-chip" data-val="land">Land / New Build</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: More Preferences + Submit -->
+      <div>
+        <div class="card" style="margin-bottom:20px;">
+          <h3 style="margin-bottom:16px;">Target Areas</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;" id="areaSelect">
+            <button class="goal-chip" data-val="carlisle">Carlisle</button>
+            <button class="goal-chip" data-val="mechanicsburg">Mechanicsburg</button>
+            <button class="goal-chip" data-val="camp-hill">Camp Hill</button>
+            <button class="goal-chip" data-val="harrisburg">Harrisburg</button>
+            <button class="goal-chip" data-val="hershey">Hershey</button>
+            <button class="goal-chip" data-val="york">York</button>
+            <button class="goal-chip" data-val="marysville">Marysville</button>
+            <button class="goal-chip" data-val="maryland">Maryland</button>
+            <button class="goal-chip" data-val="other">Other</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <h3 style="margin-bottom:16px;">Top Priorities <span style="font-size:0.78rem;color:#8a95a5;font-weight:400;">(select up to 4)</span></h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;" id="prioritySelect">
+            <button class="goal-chip" data-val="price">Price / Value</button>
+            <button class="goal-chip" data-val="schools">School District</button>
+            <button class="goal-chip" data-val="commute">Commute</button>
+            <button class="goal-chip" data-val="yard">Yard / Outdoor</button>
+            <button class="goal-chip" data-val="condition">Move-In Condition</button>
+            <button class="goal-chip" data-val="size">Square Footage</button>
+            <button class="goal-chip" data-val="garage">Garage</button>
+            <button class="goal-chip" data-val="neighborhood">Neighborhood</button>
+            <button class="goal-chip" data-val="investment">Investment Potential</button>
+            <button class="goal-chip" data-val="privacy">Privacy / Lot Size</button>
+          </div>
+        </div>
+
+        <textarea id="lead-notes" placeholder="Anything else we should know? Budget range, lease end date, specific needs... (optional)" rows="3" class="form-input" style="margin-bottom:16px;resize:vertical;"></textarea>
+
+        <button type="button" onclick="submitLeadForm()" class="cta-btn cta-btn-gold" style="width:100%;justify-content:center;padding:16px 24px;" id="leadSubmitBtn">
+          Submit My Buyer Profile &amp; Get a Custom Strategy
+        </button>
+        <p id="leadFormMsg" style="display:none;margin-top:10px;font-size:0.85rem;text-align:center;padding:10px;border-radius:var(--radius-sm);"></p>
+
+        <div class="context-first">
+          <div class="callout" style="margin-bottom:0;">
+            <div class="btag btag-first" style="margin-bottom:6px;">First-Time Buyer</div>
+            <strong>Not sure about your budget yet?</strong> That's exactly why we start here. Submit your profile and we'll connect you with a lender who can show you what you qualify for — no commitment, no pressure.
+          </div>
+        </div>
+        <div class="context-repeat">
+          <div class="callout callout-navy" style="margin-bottom:0;">
+            <div class="btag btag-repeat" style="margin-bottom:6px;">Repeat Buyer</div>
+            <strong>Selling while buying?</strong> Note that in the message above. We'll build a coordinated strategy that addresses timing, equity, and bridge financing options.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 3: REPRESENTATION ==================== -->
+<section class="section" id="representation">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> Module 02</div>
+    <h2 class="section-title">How Buyer Representation Works — And Why It Matters</h2>
+    <p class="section-sub">Buying a home without dedicated representation is like going to court without an attorney. You can do it — but the other side has one, and they're not looking out for you.</p>
+    <div class="grid-3" style="margin-bottom:40px;">
+      <div class="card"><div class="card-icon">&#9878;</div><h3>Advocacy, Not Sales</h3><p>A buyer's agent works exclusively in your interest — evaluating properties critically, identifying risks you'd miss, and negotiating terms that protect your investment. We don't earn more when you pay more.</p></div>
+      <div class="card"><div class="card-icon">&#128269;</div><h3>Market Intelligence</h3><p>We monitor your target areas daily — new listings, price changes, expired listings, off-market opportunities. Active intelligence gathering filtered through local knowledge of neighborhoods, school boundaries, and resale patterns.</p></div>
+      <div class="card"><div class="card-icon">&#128200;</div><h3>Negotiation Strength</h3><p>We analyze comparable sales, seller motivation, days on market, competing offers, and contingency risks to position your offer as the one that wins — without overpaying or waiving protections recklessly.</p></div>
+    </div>
+    <div class="grid-2" style="gap:32px;">
+      <div class="card">
+        <h3>What We Commit To</h3>
+        <ul style="padding-left:18px;color:#5a6a7a;font-size:0.92rem;line-height:2.2;">
+          <li><strong>Communication:</strong> Consistent updates — not silence between showings</li>
+          <li><strong>Market Monitoring:</strong> Daily watch on your target criteria and areas</li>
+          <li><strong>Honest Evaluation:</strong> We'll tell you when a home is overpriced or wrong for your goals</li>
+          <li><strong>Transaction Management:</strong> Our team coordinates every deadline from contract to closing</li>
+          <li><strong>Financial Awareness:</strong> We stay connected with your lender to catch issues early</li>
+          <li><strong>Post-Closing Support:</strong> Questions don't stop at the closing table</li>
+        </ul>
+      </div>
+      <div>
+        <div class="context-first">
+          <div class="callout" style="margin-top:0;margin-bottom:20px;"><div class="btag btag-first" style="margin-bottom:6px;">First-Time Buyer Note</div><strong>Why does this matter for first-time buyers?</strong><br>You've never negotiated a home purchase or reviewed an agreement of sale. Having a dedicated representative means someone is reading every document, flagging every risk, and explaining every step.</div>
+        </div>
+        <div class="context-repeat">
+          <div class="callout callout-navy" style="margin-top:0;margin-bottom:20px;"><div class="btag btag-repeat" style="margin-bottom:6px;">Repeat Buyer Note</div><strong>Why does this matter for repeat buyers?</strong><br>Even experienced buyers face new dynamics every cycle — shifting market conditions, different financing landscapes, and evolving contract norms. If you're also selling, coordination between your sale and purchase requires strategic timing.</div>
+        </div>
+        <div class="card" style="background:var(--cream);"><h3>Pennsylvania Requires Transparency</h3><p>In Pennsylvania, buyers receive a Consumer Notice early in the process that explains agency relationships. We walk you through this clearly — it's a transparency tool, not a trap.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MICRO-CTA #1 ==================== -->
+<div class="micro-cta">
+  <div class="micro-cta-inner">
+    <h3>Ready to discuss your situation?</h3>
+    <p>A 15-minute strategy call costs nothing and clarifies everything — your budget, timeline, and options.</p>
+    <a href="#contact" class="cta-btn cta-btn-gold" style="padding:13px 32px;font-size:0.9rem;">Book Your Buyer Strategy Session</a>
+  </div>
+</div>
+
+<!-- ==================== MODULE 4: FINANCING ==================== -->
+<section class="section section-cream" id="financing">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> Module 03</div>
+    <h2 class="section-title">Get Financially Ready Before You Shop</h2>
+    <p class="section-sub">Financing isn't just paperwork — it's strategy. Your loan type, approval strength, and cash position directly affect which homes you can compete for.</p>
+
+    <!-- Pre-Qual vs Pre-Approval -->
+    <div class="card" style="margin-bottom:32px;padding:0;overflow:hidden;">
+      <div class="grid-2" style="gap:0;min-height:0;">
+        <div style="padding:32px;border-right:1px solid rgba(27,42,74,0.08);">
+          <div style="font-size:0.72rem;font-weight:700;color:#e65100;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Weaker</div>
+          <h3 style="font-family:var(--font-serif);color:var(--navy);font-size:1.2rem;margin-bottom:12px;">Pre-Qualification</h3>
+          <ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2;">
+            <li>Based on self-reported income and debt</li><li>No document verification</li><li>Quick — often done in minutes</li><li>Sellers view this as unverified</li><li>Not sufficient for competitive offers</li>
+          </ul>
+        </div>
+        <div style="padding:32px;background:rgba(197,165,90,0.04);">
+          <div style="font-size:0.72rem;font-weight:700;color:#2e7d32;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Stronger</div>
+          <h3 style="font-family:var(--font-serif);color:var(--navy);font-size:1.2rem;margin-bottom:12px;">Pre-Approval</h3>
+          <ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2;">
+            <li>Lender verifies income, assets, credit, and employment</li><li>Requires documentation (pay stubs, W-2s, bank statements)</li><li>Produces a formal approval letter with specific amount</li><li>Sellers take these offers seriously</li><li><strong>This is what we recommend before touring</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lender Checklist + Do-Nots -->
+    <div class="grid-2" style="gap:32px;margin-bottom:40px;">
+      <div class="card">
+        <h3 style="margin-bottom:16px;">What Your Lender Will Need</h3>
+        <div class="checklist" id="lenderChecklist">
+          <div class="check-item" data-key="lender-paystubs"><div class="check-box">&#10003;</div><div class="check-label">Most recent 30 days of pay stubs</div></div>
+          <div class="check-item" data-key="lender-w2"><div class="check-box">&#10003;</div><div class="check-label">Last 2 years of W-2s or 1099s</div></div>
+          <div class="check-item" data-key="lender-tax"><div class="check-box">&#10003;</div><div class="check-label">Last 2 years of federal tax returns</div></div>
+          <div class="check-item" data-key="lender-bank"><div class="check-box">&#10003;</div><div class="check-label">Last 2-3 months of bank statements (all accounts)</div></div>
+          <div class="check-item" data-key="lender-id"><div class="check-box">&#10003;</div><div class="check-label">Government-issued photo ID</div></div>
+          <div class="check-item" data-key="lender-employ"><div class="check-box">&#10003;</div><div class="check-label">Employment verification info</div></div>
+          <div class="check-item" data-key="lender-gift"><div class="check-box">&#10003;</div><div class="check-label">Gift letter (if receiving family funds for down payment)</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="background:var(--navy);color:var(--white);margin-bottom:20px;">
+          <h3 style="color:var(--gold);margin-bottom:12px;">What NOT To Do While Getting Approved</h3>
+          <ul style="padding-left:18px;color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:2.2;">
+            <li><strong>Don't open new credit cards</strong> or finance large purchases</li>
+            <li><strong>Don't make large deposits</strong> without a paper trail</li>
+            <li><strong>Don't change jobs</strong> if possible</li>
+            <li><strong>Don't co-sign</strong> for anyone else's loan</li>
+            <li><strong>Don't move large sums</strong> between accounts undocumented</li>
+            <li><strong>Don't pay off collections</strong> without talking to your lender first</li>
+          </ul>
+        </div>
+        <div class="context-first"><div class="callout"><div class="btag btag-first" style="margin-bottom:6px;">First-Time Buyer Tip</div><strong>Don't panic about your credit score.</strong> FHA loans accept scores as low as 580 with 3.5% down. Your lender can review your full picture and find the best path forward.</div></div>
+        <div class="context-repeat"><div class="callout callout-navy"><div class="btag btag-repeat" style="margin-bottom:6px;">Repeat Buyer Note</div><strong>Your equity changes everything.</strong> If you're selling, the equity you extract becomes part of your down payment. Your lender needs to understand the sale timeline to structure your approval.</div>
+        <div class="card" style="margin-top:16px;border-left:4px solid #1565c0;">
+          <h3 style="margin-bottom:8px;">Selling Your Current Home?</h3>
+          <p style="font-size:0.9rem;color:#5a6a7a;line-height:1.7;margin-bottom:12px;">Coordinating a sale and purchase simultaneously requires a specific strategy — timing, bridge financing, contingency structure, and sometimes a rent-back arrangement. We've built a complete platform for the selling side too.</p>
+          <a href="https://selling.sbrealty.co" target="_blank" style="display:inline-flex;align-items:center;gap:8px;color:#1565c0;font-weight:600;font-size:0.9rem;text-decoration:none;">Visit Our Seller Experience OS &rarr;</a>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Loan Types -->
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;color:var(--navy);margin-bottom:20px;">Loan Types at a Glance</h3>
+    <div class="tab-nav" id="loanTabs">
+      <button class="tab-btn active" data-tab="conventional">Conventional</button>
+      <button class="tab-btn" data-tab="fha">FHA</button>
+      <button class="tab-btn" data-tab="va">VA</button>
+      <button class="tab-btn" data-tab="cash">Cash</button>
+      <button class="tab-btn" data-tab="dpa">Down Payment Assistance</button>
+    </div>
+    <div class="tab-panel active" data-tab="conventional"><div class="card"><div class="grid-2" style="gap:24px;"><div><h3>Conventional Loan</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">Most common loan type for buyers with solid credit and stable income.</p><ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;margin-top:12px;"><li><strong>Min Down:</strong> As low as 3% (first-time) or 5%</li><li><strong>Credit:</strong> Typically 620+, better rates at 740+</li><li><strong>PMI:</strong> Required under 20% down, removable at 20% equity</li></ul></div><div><h3>Seller Perception</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">Conventional offers are viewed favorably — streamlined underwriting, fewer property condition requirements vs FHA/VA.</p></div></div></div></div>
+    <div class="tab-panel" data-tab="fha"><div class="card"><div class="grid-2" style="gap:24px;"><div><h3>FHA Loan</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">Backed by the Federal Housing Administration. More lenient qualification.</p><ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;margin-top:12px;"><li><strong>Min Down:</strong> 3.5% with 580+ credit</li><li><strong>Credit:</strong> 580+ for 3.5% down; 500-579 with 10% down</li><li><strong>MIP:</strong> Required for life of loan (unless refinanced)</li><li><strong>Property Requirements:</strong> Must meet FHA standards</li></ul></div><div><h3>What to Know</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">FHA appraisals have more scrutiny — some fixer-uppers may not qualify. Your lender and our team help identify potential issues before you make an offer.</p></div></div></div></div>
+    <div class="tab-panel" data-tab="va"><div class="card"><div class="grid-2" style="gap:24px;"><div><h3>VA Loan</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">Available to eligible military, veterans, and qualifying surviving spouses. No down payment, no PMI.</p><ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;margin-top:12px;"><li><strong>Min Down:</strong> 0%</li><li><strong>No PMI:</strong> No monthly mortgage insurance</li><li><strong>Funding Fee:</strong> One-time fee (can be financed)</li></ul></div><div><h3>Competitive Advantage</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">Zero down and no PMI means lower payments. VA appraisals have property condition requirements, but a strong pre-approval and clean terms overcome seller hesitation.</p></div></div></div></div>
+    <div class="tab-panel" data-tab="cash"><div class="card"><div class="grid-2" style="gap:24px;"><div><h3>Cash Purchase</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">No lender, no appraisal requirement (though recommended), faster closing.</p><ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;margin-top:12px;"><li><strong>Proof of Funds:</strong> Bank statement showing liquid assets</li><li><strong>Faster Closing:</strong> Often 2-3 weeks</li><li><strong>Strongest Position:</strong> No financing contingency</li></ul></div><div><h3>Still Get an Inspection</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">Cash does not mean careless. A $400-600 inspection is insurance against expensive surprises on a six-figure purchase.</p></div></div></div></div>
+    <div class="tab-panel" data-tab="dpa"><div class="card"><div class="grid-2" style="gap:24px;"><div><h3>Down Payment Assistance</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">Pennsylvania offers several programs for qualifying buyers.</p><ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;margin-top:12px;"><li><strong>PHFA Programs:</strong> Several assistance options</li><li><strong>Eligibility:</strong> Based on income, price, and buyer status</li><li><strong>Structure:</strong> Grants, forgivable loans, or low-interest second mortgages</li></ul></div><div><h3>How We Help</h3><p style="font-size:0.9rem;color:#5a6a7a;line-height:1.8;">Our preferred lenders are experienced with DPA programs. These sometimes add processing time, so starting early is important.</p></div></div></div></div>
+
+    <!-- Preferred Lender Partner -->
+    <div style="margin-top:48px;">
+      <h3 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--navy);margin-bottom:8px;">Our Preferred Lending Partner</h3>
+      <p style="color:#5a6a7a;font-size:0.95rem;margin-bottom:28px;">We partner with lenders we trust to move fast, communicate clearly, and find the best financing solution for every buyer.</p>
+      <div class="card" style="border:2px solid var(--gold-border);overflow:hidden;padding:0;">
+        <div style="display:grid;grid-template-columns:280px 1fr;min-height:320px;" class="lender-card-grid">
+          <div style="background:var(--navy);padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+            <div style="width:120px;height:120px;border-radius:50%;border:3px solid var(--gold);overflow:hidden;margin-bottom:16px;background:#2a3d66;">
+              <img src="https://cdn.prod.website-files.com/658f30a87b1a52ef8ad0b746/68d2b0f332332b13ae73e412_68d2b0f2eed3737d87c1063b_erasebg-transformed%2520(27).avif" alt="Andrew Morcos" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--font-serif);font-size:2.4rem;color:var(--gold);\'>AM</div>';">
+            </div>
+            <h3 style="color:var(--white);font-family:var(--font-serif);font-size:1.2rem;margin-bottom:2px;">Andrew Morcos</h3>
+            <p style="color:var(--gold);font-size:0.82rem;font-weight:600;margin-bottom:4px;">VP Business Development</p>
+            <p style="color:rgba(255,255,255,0.6);font-size:0.78rem;margin-bottom:16px;">NMLS #190629</p>
+            <div style="display:flex;flex-direction:column;gap:6px;width:100%;">
+              <a href="tel:2015199712" style="color:rgba(255,255,255,0.8);font-size:0.85rem;text-decoration:none;text-align:center;">&#128222; (201) 519-9712</a>
+              <a href="tel:7177554400" style="color:rgba(255,255,255,0.6);font-size:0.78rem;text-decoration:none;text-align:center;">Office: (717) 755-4400 x1102</a>
+              <a href="mailto:amorcos@fahmloans.com" style="color:var(--gold);font-size:0.85rem;text-decoration:none;text-align:center;">&#9993; amorcos@fahmloans.com</a>
+            </div>
+            <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);width:100%;">
+              <img src="https://cdn.prod.website-files.com/658f30a87b1a52ef8ad0b746/6993659367ea701b1d75f2cc_69936592f62659f32bed9def_First%2520Alliance%2520Home%2520Mortgage.png" alt="First Alliance Home Mortgage" style="height:28px;opacity:0.8;" onerror="this.outerHTML='<span style=\'color:rgba(255,255,255,0.5);font-size:0.72rem;\'>First Alliance Home Mortgage, LLC<br>NMLS #5034</span>';">
+              <p style="color:rgba(255,255,255,0.4);font-size:0.68rem;margin-top:4px;">2805 Eastern Blvd, York, PA</p>
+            </div>
+          </div>
+          <div style="padding:32px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4caf50;"></span><span style="font-size:0.78rem;font-weight:600;color:#2e7d32;">PREFERRED PARTNER</span></div>
+            <h3 style="font-family:var(--font-serif);color:var(--navy);font-size:1.15rem;margin-bottom:8px;">First Alliance Home Mortgage</h3>
+            <p style="font-size:0.9rem;color:#5a6a7a;line-height:1.7;margin-bottom:20px;">Andrew is a Rutgers University graduate and experienced mortgage professional who specializes in finding creative financing solutions tailored to each buyer's unique situation. Whether you're a first-time buyer exploring FHA, a veteran using your VA benefit, or a move-up buyer leveraging equity — Andrew builds a financing plan around your goals.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+              <div style="padding:12px 16px;background:var(--gold-light);border-radius:var(--radius-sm);text-align:center;font-size:0.72rem;font-weight:600;color:var(--dark-gold);letter-spacing:0.06em;text-transform:uppercase;">Conventional</div>
+              <div style="padding:12px 16px;background:var(--gold-light);border-radius:var(--radius-sm);text-align:center;font-size:0.72rem;font-weight:600;color:var(--dark-gold);letter-spacing:0.06em;text-transform:uppercase;">FHA</div>
+              <div style="padding:12px 16px;background:var(--gold-light);border-radius:var(--radius-sm);text-align:center;font-size:0.72rem;font-weight:600;color:var(--dark-gold);letter-spacing:0.06em;text-transform:uppercase;">VA</div>
+              <div style="padding:12px 16px;background:var(--gold-light);border-radius:var(--radius-sm);text-align:center;font-size:0.72rem;font-weight:600;color:var(--dark-gold);letter-spacing:0.06em;text-transform:uppercase;">Down Payment Assist</div>
+            </div>
+            <div style="background:var(--cream);padding:20px;border-radius:var(--radius-md);">
+              <h4 style="font-size:0.88rem;font-weight:600;color:var(--navy);margin-bottom:12px;">Connect With Andrew</h4>
+              <form id="lenderForm" onsubmit="return false;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                  <input type="text" id="lf-first" placeholder="First Name" required class="form-input">
+                  <input type="text" id="lf-last" placeholder="Last Name" required class="form-input">
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                  <input type="email" id="lf-email" placeholder="Email" required class="form-input">
+                  <input type="tel" id="lf-phone" placeholder="Phone" class="form-input">
+                </div>
+                <select id="lf-loantype" class="form-input" style="margin-bottom:10px;">
+                  <option value="">Loan Type Interest</option><option value="Conventional">Conventional</option><option value="FHA">FHA</option><option value="VA">VA</option><option value="Cash">Cash Buyer</option><option value="DPA">Down Payment Assistance</option><option value="Unsure">Not Sure Yet</option>
+                </select>
+                <textarea id="lf-message" placeholder="Anything you'd like Andrew to know? (optional)" rows="2" class="form-input" style="margin-bottom:12px;resize:vertical;"></textarea>
+                <button type="button" onclick="submitLenderForm()" class="cta-btn cta-btn-gold" style="width:100%;justify-content:center;padding:13px 24px;font-size:0.9rem;" id="lenderSubmitBtn">Send to Andrew &amp; Get Pre-Approval Started</button>
+                <p id="lenderFormMsg" style="display:none;margin-top:10px;font-size:0.85rem;text-align:center;padding:10px;border-radius:var(--radius-sm);"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mortgage Calculator -->
+    <div style="margin-top:48px;" id="calculator">
+      <h3 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--navy);margin-bottom:8px;">Mortgage Payment Calculator</h3>
+      <p style="color:#5a6a7a;font-size:0.95rem;margin-bottom:28px;">Estimate your monthly payment by loan type. Adjust the inputs to see how down payment, rate, and loan type affect your bottom line.</p>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="display:flex;border-bottom:2px solid rgba(27,42,74,0.08);" id="calcTabs">
+          <button class="calc-tab active" data-calc="conventional" onclick="switchCalcTab('conventional')">Conventional</button>
+          <button class="calc-tab" data-calc="fha" onclick="switchCalcTab('fha')">FHA</button>
+          <button class="calc-tab" data-calc="va" onclick="switchCalcTab('va')">VA</button>
+        </div>
+        <div style="padding:32px;">
+          <div class="grid-2" style="gap:40px;">
+            <div>
+              <div style="margin-bottom:20px;"><label style="font-size:0.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:6px;">Home Price</label><div style="position:relative;"><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8a95a5;">$</span><input type="text" id="calc-price" value="320,000" class="form-input" style="padding-left:28px;font-size:1rem;font-weight:600;color:var(--navy);" oninput="formatCalcInput(this);recalcMortgage()"></div></div>
+              <div style="margin-bottom:20px;"><div style="display:flex;justify-content:space-between;"><label style="font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:6px;">Down Payment</label><span id="calc-dp-pct" style="font-size:0.78rem;color:var(--gold);font-weight:600;">5%</span></div><div style="position:relative;"><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8a95a5;">$</span><input type="text" id="calc-down" value="16,000" class="form-input" style="padding-left:28px;font-size:1rem;font-weight:600;color:var(--navy);" oninput="formatCalcInput(this);recalcMortgage()"></div><input type="range" id="calc-down-slider" min="0" max="100" value="5" style="width:100%;margin-top:8px;accent-color:var(--gold);" oninput="updateDownFromSlider(this.value)"></div>
+              <div style="margin-bottom:20px;"><label style="font-size:0.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:6px;">Interest Rate (%)</label><input type="number" id="calc-rate" value="6.75" step="0.125" min="0" max="15" class="form-input" style="font-size:1rem;font-weight:600;color:var(--navy);" oninput="recalcMortgage()"></div>
+              <div style="margin-bottom:20px;"><label style="font-size:0.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:6px;">Loan Term</label><select id="calc-term" class="form-input" style="font-size:0.95rem;color:var(--navy);" onchange="recalcMortgage()"><option value="30" selected>30 Years</option><option value="20">20 Years</option><option value="15">15 Years</option></select></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div><label style="font-size:0.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:6px;">Annual Property Tax</label><div style="position:relative;"><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8a95a5;">$</span><input type="text" id="calc-tax" value="4,800" class="form-input" style="padding-left:28px;font-weight:600;color:var(--navy);" oninput="formatCalcInput(this);recalcMortgage()"></div></div>
+                <div><label style="font-size:0.82rem;font-weight:600;color:var(--navy);display:block;margin-bottom:6px;">Annual Insurance</label><div style="position:relative;"><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8a95a5;">$</span><input type="text" id="calc-ins" value="1,800" class="form-input" style="padding-left:28px;font-weight:600;color:var(--navy);" oninput="formatCalcInput(this);recalcMortgage()"></div></div>
+              </div>
+              <div id="calc-va-info" style="display:none;margin-top:16px;padding:12px 16px;background:rgba(33,150,243,0.08);border-radius:var(--radius-sm);border-left:3px solid #2196f3;font-size:0.82rem;color:#1565c0;line-height:1.6;"><strong>VA Funding Fee:</strong> A one-time fee (typically 1.25%-3.3%) is financed into the loan. No monthly PMI.</div>
+              <div id="calc-fha-info" style="display:none;margin-top:16px;padding:12px 16px;background:rgba(255,152,0,0.08);border-radius:var(--radius-sm);border-left:3px solid #ff9800;font-size:0.82rem;color:#e65100;line-height:1.6;"><strong>FHA MIP:</strong> Upfront MIP (1.75%) financed into loan + monthly MIP (0.55%/yr) for the life of the loan.</div>
+            </div>
+            <div>
+              <div style="background:var(--navy);border-radius:var(--radius-lg);padding:32px;text-align:center;margin-bottom:20px;">
+                <p style="color:rgba(255,255,255,0.6);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;">Estimated Monthly Payment</p>
+                <div id="calc-total" style="font-family:var(--font-serif);font-size:3rem;font-weight:700;color:var(--gold);line-height:1;">$2,234</div>
+                <p id="calc-loan-type-label" style="color:rgba(255,255,255,0.5);font-size:0.78rem;margin-top:8px;">Conventional · 30-Year Fixed</p>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--cream);border-radius:var(--radius-sm);"><span style="font-size:0.88rem;color:var(--navy);font-weight:500;">Principal &amp; Interest</span><span id="calc-pi" style="font-size:0.95rem;font-weight:700;color:var(--navy);">$1,974</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--cream);border-radius:var(--radius-sm);"><span style="font-size:0.88rem;color:var(--navy);font-weight:500;">Property Tax</span><span id="calc-tax-mo" style="font-size:0.95rem;font-weight:700;color:var(--navy);">$400</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--cream);border-radius:var(--radius-sm);"><span style="font-size:0.88rem;color:var(--navy);font-weight:500;">Homeowner's Insurance</span><span id="calc-ins-mo" style="font-size:0.95rem;font-weight:700;color:var(--navy);">$150</span></div>
+                <div id="calc-pmi-row" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(197,165,90,0.08);border-radius:var(--radius-sm);border:1px dashed var(--gold-border);"><span style="font-size:0.88rem;color:var(--navy);font-weight:500;" id="calc-pmi-label">PMI (est.)</span><span id="calc-pmi-mo" style="font-size:0.95rem;font-weight:700;color:var(--dark-gold);">$160</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--navy);border-radius:var(--radius-sm);margin-top:4px;"><span style="font-size:0.88rem;color:rgba(255,255,255,0.8);font-weight:500;">Loan Amount</span><span id="calc-loan-amt" style="font-size:0.95rem;font-weight:700;color:var(--gold);">$304,000</span></div>
+              </div>
+              <div style="margin-top:20px;text-align:center;"><button onclick="document.getElementById('lenderForm').scrollIntoView({behavior:'smooth'})" class="cta-btn cta-btn-gold" style="width:100%;justify-content:center;font-size:0.88rem;padding:13px 24px;">Get a Real Quote From Andrew</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="disclaimer" style="margin-top:16px;">This calculator provides estimates for educational purposes only. Actual rates, PMI/MIP costs, taxes, and insurance will vary. Contact Andrew Morcos at First Alliance Home Mortgage for a personalized quote.</div>
+    </div>
+    <div class="disclaimer">Loan type information is provided for general educational purposes. Specific rates, terms, requirements, and eligibility criteria vary by lender, program, and individual financial situation.</div>
+  </div>
+</section>
+
+<!-- ==================== MICRO-CTA #2 ==================== -->
+<div class="micro-cta">
+  <div class="micro-cta-inner">
+    <h3>Know your budget? Let's find your home.</h3>
+    <p>Once you're pre-approved, we activate your custom search and start monitoring the market daily.</p>
+    <a href="#goals" class="cta-btn cta-btn-gold" style="padding:13px 32px;font-size:0.9rem;">Submit Your Buyer Profile</a>
+  </div>
+</div>
+
+<!-- ==================== MODULE 5: ROADMAP ==================== -->
+<section class="section" id="roadmap">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> Module 04</div>
+    <h2 class="section-title">Your Path From First Conversation to Keys in Hand</h2>
+    <p class="section-sub">Every home purchase follows a structured process. Understanding each stage eliminates surprises and keeps you in control. Click any stage to learn more.</p>
+    <div class="timeline" id="roadmapTimeline">
+      <div class="timeline-item active"><div class="timeline-dot"></div><div class="timeline-num">Stage 01</div><div class="timeline-title">Buyer Strategy Session</div><div class="timeline-desc"><p style="padding-top:4px;">We align on your goals, timeline, budget, and priorities. We review financial readiness, explain the process, discuss representation, and build your custom search criteria. Typically 45-60 minutes.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 02</div><div class="timeline-title">Financing Setup</div><div class="timeline-desc"><p style="padding-top:4px;">Connect with a lender, submit documentation, and secure your pre-approval letter. This determines your price range and strengthens your competitive position.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 03</div><div class="timeline-title">Agency & Paperwork Setup</div><div class="timeline-desc"><p style="padding-top:4px;">Review the Consumer Notice, discuss buyer representation, and complete any agency-related paperwork required by our brokerage.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 04</div><div class="timeline-title">Search Criteria Definition</div><div class="timeline-desc"><p style="padding-top:4px;">Finalize your search parameters — price range, areas, property type, must-haves, deal-breakers. These feed into our monitoring systems.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 05</div><div class="timeline-title">Active Home Search</div><div class="timeline-desc"><p style="padding-top:4px;">Daily monitoring begins. You receive curated alerts. We pre-screen properties for red flags before recommending tours.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 06</div><div class="timeline-title">Property Tours</div><div class="timeline-desc"><p style="padding-top:4px;">Private showings or back-to-back tours. We evaluate condition, layout, neighborhood, and value. Most buyers find the right fit within 5-15 showings.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 07</div><div class="timeline-title">Offer & Negotiation</div><div class="timeline-desc"><p style="padding-top:4px;">We craft an offer based on market data. Price, deposit, contingencies, closing timeline — all calibrated to win without overexposing you.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 08</div><div class="timeline-title">Inspections & Due Diligence</div><div class="timeline-desc"><p style="padding-top:4px;">Home inspection, radon, pest, sewer scope as needed. We review findings with you and negotiate repair requests where appropriate.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 09</div><div class="timeline-title">Appraisal & Underwriting</div><div class="timeline-desc"><p style="padding-top:4px;">Lender orders appraisal, your file goes through underwriting. Our team stays in close contact with your lender to keep everything on track.</p></div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-num">Stage 10</div><div class="timeline-title">Final Walkthrough & Closing</div><div class="timeline-desc"><p style="padding-top:4px;">Verify the home's condition, sign documents, transfer funds, and receive your keys. We prepare you so nothing at closing is a surprise.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 6: SEARCH + TOURING ==================== -->
+<section class="section section-cream" id="search">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> Module 05</div>
+    <h2 class="section-title">How We Find the Right Home — Not Just Any Home</h2>
+    <p class="section-sub">We don't just add you to an auto-search and wait. Our search strategy is active, monitored, and adjusted based on what you learn as you tour.</p>
+    <div class="grid-3" style="margin-bottom:40px;">
+      <div class="card"><div class="card-icon">&#127919;</div><h3>Calibrated Criteria</h3><p>We factor in school boundaries, flood zones, commute times, HOA structures, tax assessments, and neighborhood trajectory. The filter is built to find homes that match your life — not just your checklist.</p></div>
+      <div class="card"><div class="card-icon">&#128225;</div><h3>Daily Monitoring</h3><p>New listings, price reductions, back-on-market properties — tracked in real time. You receive curated alerts, but we're also watching for off-market opportunities through our network.</p></div>
+      <div class="card"><div class="card-icon">&#128736;</div><h3>Pre-Screening</h3><p>Before recommending a showing, we evaluate listing photos, disclosures, tax records, days on market, and pricing. This saves you from touring overpriced or problem properties.</p></div>
+    </div>
+    <div class="grid-2" style="gap:32px;">
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Smart Search Habits</h3>
+        <ul style="padding-left:18px;color:#5a6a7a;font-size:0.9rem;line-height:2.2;">
+          <li><strong>Photos lie.</strong> Wide-angle lenses make rooms look 30% larger. Always tour.</li>
+          <li><strong>Watch days on market.</strong> Homes sitting longer may signal pricing or condition issues — or opportunity.</li>
+          <li><strong>Expand your map slightly.</strong> Sometimes the best value is one neighborhood over.</li>
+          <li><strong>Evening drive-bys</strong> show traffic, noise, and neighbor activity that daytime hides.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:20px;">
+          <h3 style="margin-bottom:12px;">Tour Day Prep</h3>
+          <div class="checklist" id="tourChecklist">
+            <div class="check-item" data-key="tour-preapproval"><div class="check-box">&#10003;</div><div class="check-label">Pre-approval letter ready</div></div>
+            <div class="check-item" data-key="tour-criteria"><div class="check-box">&#10003;</div><div class="check-label">Reviewed listing details beforehand</div></div>
+            <div class="check-item" data-key="tour-phone"><div class="check-box">&#10003;</div><div class="check-label">Phone charged for photos and notes</div></div>
+            <div class="check-item" data-key="tour-questions"><div class="check-box">&#10003;</div><div class="check-label">Questions prepared (systems age, HOA, seller timeline)</div></div>
+            <div class="check-item" data-key="tour-drive"><div class="check-box">&#10003;</div><div class="check-label">Driven through neighborhood at different time of day</div></div>
+          </div>
+        </div>
+        <div class="callout"><strong>After the showing:</strong> We debrief immediately. Rate it, note concerns, compare to others. If it's strong, we run comparable sales and discuss offer strategy before the next buyer beats you.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 7: OFFER STRATEGY ==================== -->
+<section class="section section-navy" id="offers">
+  <div class="container">
+    <div class="section-badge" style="color:var(--gold);"><span class="badge-line"></span> Module 06</div>
+    <h2 class="section-title" style="color:var(--white);">Winning the Right Home at the Right Price</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.7);">Price is only one variable — the strongest offers win on terms, timing, and perceived reliability.</p>
+    <div class="grid-3" style="margin-bottom:40px;">
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);"><h3 style="color:var(--gold);">Price Strategy</h3><p style="color:rgba(255,255,255,0.8);">We analyze comparable sales to determine fair market value. Your offer price is based on data — not what the seller is asking.</p></div>
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);"><h3 style="color:var(--gold);">Terms That Win</h3><p style="color:rgba(255,255,255,0.8);">Closing timeline flexibility, deposit size, contingency structure, financing strength. A $300K offer with strong terms often beats a $305K offer with weak ones.</p></div>
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);"><h3 style="color:var(--gold);">Contingency Strategy</h3><p style="color:rgba(255,255,255,0.8);">Contingencies protect you. We never recommend waiving recklessly. Instead, we structure timelines strategically — shorter periods, clear communication, demonstrated readiness.</p></div>
+    </div>
+    <div class="grid-2" style="gap:32px;">
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);">
+        <h3 style="color:var(--gold);margin-bottom:16px;">Earnest Money / Deposit</h3>
+        <p style="color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:1.8;margin-bottom:12px;">A good-faith payment held in escrow. In Central PA, typically 1-3% of purchase price.</p>
+        <ul style="padding-left:18px;color:rgba(255,255,255,0.75);font-size:0.88rem;line-height:2.2;">
+          <li>A stronger deposit signals commitment</li>
+          <li>Protected by your contingencies — exercise a valid contingency, generally get it back</li>
+          <li>Applied toward your purchase at closing — not an extra cost</li>
+        </ul>
+      </div>
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);">
+        <h3 style="color:var(--gold);margin-bottom:16px;">Multiple-Offer Situations</h3>
+        <ul style="padding-left:18px;color:rgba(255,255,255,0.75);font-size:0.88rem;line-height:2.2;">
+          <li><strong>Set a ceiling</strong> before you write the offer — not after you're emotional</li>
+          <li><strong>Escalation clauses</strong> can auto-increase your price to a cap</li>
+          <li><strong>Appraisal gap coverage</strong> shows you'll cover a difference</li>
+          <li><strong>Flexible possession</strong> (seller rent-back) can tip the scales</li>
+          <li><strong>Clean offer wins.</strong> Fewer conditions = easier choice for sellers</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Repeat buyer: sell-while-buying strategy -->
+    <div class="context-repeat" style="margin-top:40px;">
+      <div class="card" style="border:2px solid rgba(33,150,243,0.2);background:rgba(33,150,243,0.03);">
+        <div class="grid-2" style="gap:32px;align-items:center;">
+          <div>
+            <div class="btag btag-repeat" style="margin-bottom:8px;">Repeat Buyer Strategy</div>
+            <h3 style="font-size:1.3rem;margin-bottom:12px;">Selling While Buying? Here's How We Coordinate.</h3>
+            <ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;">
+              <li><strong>Sell First:</strong> Maximum financial clarity — you know your equity, but you may need temporary housing</li>
+              <li><strong>Buy First:</strong> No rush to find the next home — but requires bridge financing or carrying two mortgages</li>
+              <li><strong>Simultaneous Close:</strong> Ideal but requires tight coordination — we manage both timelines</li>
+              <li><strong>Rent-Back:</strong> Sell your home, stay in it 30-60 days while you close on the new one</li>
+              <li><strong>Home Sale Contingency:</strong> Your offer is contingent on selling — weaker in competitive markets but viable in balanced ones</li>
+            </ul>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-size:0.9rem;color:#5a6a7a;line-height:1.7;margin-bottom:16px;">Our Seller Experience OS walks you through pricing, staging, marketing, and closing your current home — coordinated with your purchase timeline.</p>
+            <a href="https://selling.sbrealty.co" target="_blank" class="cta-btn" style="padding:14px 28px;font-size:0.9rem;background:#1565c0;color:var(--white);border-radius:var(--radius-md);width:100%;justify-content:center;">Visit Our Seller Platform &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MICRO-CTA #3 ==================== -->
+<div class="micro-cta">
+  <div class="micro-cta-inner">
+    <h3>Ready to start looking?</h3>
+    <p>Submit your buyer profile and we'll build your custom search — daily monitoring, curated alerts, and strategic guidance.</p>
+    <a href="#goals" class="cta-btn cta-btn-gold" style="padding:13px 32px;font-size:0.9rem;">Start Your Custom Home Search</a>
+  </div>
+</div>
+
+<!-- ==================== MODULE 8: COSTS ==================== -->
+<section class="section section-cream" id="costs">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> Module 07</div>
+    <h2 class="section-title">The Real Cost of Buying — No Surprises</h2>
+    <p class="section-sub">Your down payment is not your total cash needed. Understanding the full picture prevents sticker shock.</p>
+    <div class="card" style="margin-bottom:32px;">
+      <h3 style="margin-bottom:8px;">Estimated Cash-to-Close Breakdown</h3>
+      <p style="font-size:0.85rem;color:#8a95a5;margin-bottom:24px;">Example: $320,000 purchase, conventional financing, 5% down</p>
+      <div class="cost-bar">
+        <div class="cost-row"><div class="cost-label">Down Payment (5%)</div><div class="cost-visual"><div class="cost-fill navy" style="width:62%;">$16,000</div></div><div class="cost-amount">$16,000</div></div>
+        <div class="cost-row"><div class="cost-label">Closing Costs (est.)</div><div class="cost-visual"><div class="cost-fill gold" style="width:38%;">$9,600</div></div><div class="cost-amount">$8,000 – $11,200</div></div>
+        <div class="cost-row"><div class="cost-label">Prepaid Items</div><div class="cost-visual"><div class="cost-fill charcoal" style="width:22%;">$3,500</div></div><div class="cost-amount">$3,000 – $4,000</div></div>
+        <div class="cost-row"><div class="cost-label">Inspection Costs</div><div class="cost-visual"><div class="cost-fill gold" style="width:4%;min-width:48px;">$500</div></div><div class="cost-amount">$400 – $700+</div></div>
+        <div class="cost-row" style="margin-top:8px;padding-top:12px;border-top:2px solid var(--gold);"><div class="cost-label" style="font-weight:700;color:var(--navy);font-size:0.95rem;">Estimated Total Cash Needed</div><div class="cost-visual" style="background:transparent;"></div><div class="cost-amount" style="font-size:1rem;color:var(--navy);font-weight:700;">$27,400 – $31,900</div></div>
+      </div>
+      <p style="font-size:0.82rem;color:#8a95a5;margin-top:16px;">Note: Your earnest money deposit is included in and applied toward these figures at settlement — it's not additional.</p>
+    </div>
+    <div class="grid-2" style="gap:32px;">
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Cost Categories Explained</h3>
+        <div class="accordion" id="costAccordion">
+          <div class="acc-item"><button class="acc-trigger"><span>Down Payment</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Ranges from 0% (VA) to 3% (FHA) to 5-20%+ (conventional). Larger down payment = lower monthly payment and may eliminate PMI.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>Closing Costs (2.5-3.5%)</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Lender fees, title insurance, settlement fees, recording fees, and PA transfer tax (typically 1% each for buyer and seller). Your Loan Estimate will itemize these.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>Prepaid Items / Escrows</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Several months of insurance, taxes, and potentially mortgage insurance collected in advance. Plus prorated interest from closing day to month's end.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>Inspections ($400-$1,000+)</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Home inspection ($400-600+), radon ($125-175), pest ($75-125), sewer scope ($150-300). Paid out-of-pocket at time of service.</p></div></div></div>
+          <div class="acc-item"><button class="acc-trigger"><span>Moving & Setup</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Moving costs, utility deposits, lock changes, immediate home needs. Budget a cushion beyond closing costs so you're not depleted on day one.</p></div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="context-first"><div class="callout" style="margin-top:0;margin-bottom:20px;"><div class="btag btag-first" style="margin-bottom:6px;">First-Time Buyer</div><strong>The total can feel overwhelming.</strong> But remember: deposit is applied at closing, seller concessions can cover some costs, and down payment assistance programs exist. Your lender gives you a precise number early.</div></div>
+        <div class="context-repeat"><div class="callout callout-navy" style="margin-top:0;margin-bottom:20px;"><div class="btag btag-repeat" style="margin-bottom:6px;">Repeat Buyer</div><strong>Equity from your current home changes this math.</strong> If you sell before buying, sale proceeds cover much of the cash needed. If buying first, you need bridge financing or reserves.<br><br><a href="https://selling.sbrealty.co" target="_blank" style="color:#1565c0;font-weight:600;">Visit our Seller Platform &rarr;</a> to see what your home could sell for and how to maximize your equity.</div></div>
+        <div class="card" style="background:var(--navy);color:var(--white);"><h3 style="color:var(--gold);margin-bottom:12px;">Can I Negotiate Seller Concessions?</h3><p style="color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:1.8;">Yes — in some market conditions, sellers contribute toward closing costs. More common in buyer-favorable markets. In competitive markets, it can weaken your offer. We advise on when this makes sense.</p></div>
+      </div>
+    </div>
+    <div class="disclaimer">Cost estimates are approximate. Actual costs vary by loan type, lender, property, and municipality. Your lender provides specific projections.</div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 9: INSPECTIONS + APPRAISAL + CLOSING + PAPERWORK ==================== -->
+<section class="section" id="inspections">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> Modules 08-10</div>
+    <h2 class="section-title">From Inspection to Closing Day</h2>
+    <p class="section-sub">The critical period between accepted offer and keys in hand. Here's everything that happens and what to expect.</p>
+
+    <div class="grid-3" style="margin-bottom:40px;">
+      <div class="card"><div class="card-icon">&#128269;</div><h3>Inspections</h3><p>General home inspection, radon, pest, sewer scope — we review findings with you, separate noise from signal, and negotiate repairs where appropriate. Every home has issues; some matter, some don't.</p></div>
+      <div class="card"><div class="card-icon">&#128200;</div><h3>Appraisal & Underwriting</h3><p>For financed purchases: lender orders an appraisal, your file goes through underwriting. Document requests continue — that's normal. Respond within 24 hours to keep on track. Typically 30-45 days total.</p></div>
+      <div class="card"><div class="card-icon">&#127968;</div><h3>Final Walkthrough & Closing</h3><p>Verify home condition 24-48 hours before closing. Signing day: bring ID, cashier's check or wire, and plan for 45-90 minutes. You receive keys at or shortly after the closing table.</p></div>
+    </div>
+
+    <!-- PA Paperwork Accordion -->
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;color:var(--navy);margin-bottom:20px;">Pennsylvania Paperwork — What to Expect</h3>
+    <div class="accordion" id="paperworkAccordion">
+      <div class="acc-item"><button class="acc-trigger"><span>Consumer Notice / Agency Disclosure</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Explains agency relationships in PA. We review this with you in plain language — it's a transparency tool.</p></div></div></div>
+      <div class="acc-item"><button class="acc-trigger"><span>Buyer Representation Agreement</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Formalizes the working relationship between you and your agent/team. We explain every section before you sign.</p></div></div></div>
+      <div class="acc-item"><button class="acc-trigger"><span>Agreement of Sale (Your Offer)</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Includes price, deposit, contingencies, closing date, and special terms. Legally binding once both parties sign. We walk through every section.</p></div></div></div>
+      <div class="acc-item"><button class="acc-trigger"><span>Seller's Property Disclosure</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Seller shares what they know about home condition. We review this alongside (not instead of) a professional inspection.</p></div></div></div>
+      <div class="acc-item"><button class="acc-trigger"><span>Lead-Based Paint Disclosure</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Required for homes built before 1978. You'll have the opportunity to conduct a lead inspection if you choose.</p></div></div></div>
+      <div class="acc-item"><button class="acc-trigger"><span>Financing & Closing Documents</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Your lender provides a Loan Estimate and Closing Disclosure (3 business days before closing). Title company handles deed, settlement, and recording.</p></div></div></div>
+    </div>
+
+    <!-- What if appraisal low -->
+    <div class="card" style="margin-top:32px;max-width:700px;">
+      <h3 style="margin-bottom:12px;">What If the Appraisal Comes in Low?</h3>
+      <ul style="padding-left:18px;color:#5a6a7a;font-size:0.88rem;line-height:2.2;">
+        <li><strong>Renegotiate</strong> the price down to appraised value</li>
+        <li><strong>Split the difference</strong> between contract and appraised</li>
+        <li><strong>Cover the gap</strong> with additional cash</li>
+        <li><strong>Challenge</strong> the appraisal with additional data</li>
+        <li><strong>Exercise your contingency</strong> and withdraw</li>
+      </ul>
+    </div>
+
+    <div class="disclaimer">This information is provided for general educational purposes only and does not constitute legal, tax, or lending advice. Specific forms, requirements, costs, and timelines may vary based on the property, financing, brokerage policy, and applicable law.</div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 10: TRACKER ==================== -->
+<section class="section section-navy" id="tracker">
+  <div class="container">
+    <div class="section-badge" style="color:var(--gold);"><span class="badge-line"></span> Module 11</div>
+    <h2 class="section-title" style="color:var(--white);">Your Buying Readiness Tracker</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.7);">Track your progress. Check off items as you complete them — your progress is saved automatically.</p>
+    <div class="progress-wrap"><div class="progress-label" style="color:rgba(255,255,255,0.8);"><span>Overall Progress</span><span id="trackerPercent">0%</span></div><div class="progress-bar" style="background:rgba(255,255,255,0.1);"><div class="progress-fill" id="trackerFill"></div></div></div>
+    <div class="grid-2" style="gap:32px;">
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);">
+        <div class="check-cat" style="margin-top:0;">Pre-Consultation</div>
+        <div class="checklist tracker-checklist">
+          <div class="check-item" data-key="t-research"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Research target areas and budget range</div></div>
+          <div class="check-item" data-key="t-credit"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Review your credit report</div></div>
+          <div class="check-item" data-key="t-docs"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Gather financial documents</div></div>
+          <div class="check-item" data-key="t-timeline"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Define your buying timeline</div></div>
+        </div>
+        <div class="check-cat">Financing</div>
+        <div class="checklist tracker-checklist">
+          <div class="check-item" data-key="t-lender"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Contact lender / schedule pre-approval</div></div>
+          <div class="check-item" data-key="t-submit"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Submit loan application</div></div>
+          <div class="check-item" data-key="t-preapproval"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Receive pre-approval letter</div></div>
+        </div>
+        <div class="check-cat">Search Setup</div>
+        <div class="checklist tracker-checklist">
+          <div class="check-item" data-key="t-consultation"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Complete buyer strategy session</div></div>
+          <div class="check-item" data-key="t-criteria"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Finalize search criteria</div></div>
+        </div>
+      </div>
+      <div class="card" style="background:rgba(255,255,255,0.06);border-color:rgba(197,165,90,0.15);">
+        <div class="check-cat" style="margin-top:0;">Active Search</div>
+        <div class="checklist tracker-checklist">
+          <div class="check-item" data-key="t-tours"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Schedule and complete property tours</div></div>
+          <div class="check-item" data-key="t-favorites"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Identify top candidate properties</div></div>
+          <div class="check-item" data-key="t-offer-prep"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Confirm deposit source and offer-readiness</div></div>
+        </div>
+        <div class="check-cat">Under Contract</div>
+        <div class="checklist tracker-checklist">
+          <div class="check-item" data-key="t-accepted"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Offer accepted — contract executed</div></div>
+          <div class="check-item" data-key="t-deposit"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Earnest money deposit delivered</div></div>
+          <div class="check-item" data-key="t-inspection"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Home inspection completed</div></div>
+          <div class="check-item" data-key="t-appraisal"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Appraisal completed</div></div>
+          <div class="check-item" data-key="t-clear"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Clear to close from lender</div></div>
+        </div>
+        <div class="check-cat">Pre-Closing</div>
+        <div class="checklist tracker-checklist">
+          <div class="check-item" data-key="t-walkthrough"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Final walkthrough completed</div></div>
+          <div class="check-item" data-key="t-utilities"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Utilities scheduled for transfer</div></div>
+          <div class="check-item" data-key="t-moving"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Moving logistics arranged</div></div>
+          <div class="check-item" data-key="t-closing"><div class="check-box" style="border-color:rgba(255,255,255,0.3);">&#10003;</div><div class="check-label" style="color:rgba(255,255,255,0.8);">Closing day — keys received!</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 11: FAQ ==================== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-badge"><span class="badge-line"></span> Module 12</div>
+    <h2 class="section-title">Questions Every Buyer Asks — Honest Answers</h2>
+    <p class="section-sub">No hedging, no jargon. Clear answers to the questions we hear most.</p>
+    <div class="grid-2" style="gap:24px;">
+      <div class="accordion" id="faqAccordion1">
+        <div class="acc-item"><button class="acc-trigger"><span>Do I need to be pre-approved before seeing homes?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>We strongly recommend it. Pre-approval tells you what you can afford, strengthens your offer, and prevents heartbreak. Most sellers won't consider an offer without one.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>What if I'm not ready yet?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>That's fine. Some of our best relationships started 6-12 months before a purchase. We help you build a plan so when you're ready, you're ready. No pressure.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>How much cash do I actually need?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>More than just the down payment. On a $320K home with 5% down, plan for roughly $27,000-$32,000 total. FHA and VA buyers need less. See our Costs module for a full breakdown.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>How fast do I need to move when I find one?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>In competitive markets, hours matter. If you're pre-approved and criteria are clear, we can submit an offer the same day you tour. That's why preparation happens before touring.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>What if I lose multiple offers?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>It happens. Each lost offer teaches us about the competition. We adjust strategy and keep you disciplined. The right home at the wrong price is still the wrong deal.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>How do I know if a home is overpriced?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>We run a comparative market analysis on every property you're serious about. If the price doesn't align with the data, we tell you — and advise on what it's actually worth.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>Can I back out of a deal?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Contingencies exist for this. If inspection findings are unacceptable, you can generally withdraw within your contingency window. We structure offers to protect your exit options.</p></div></div></div>
+      </div>
+      <div class="accordion" id="faqAccordion2">
+        <div class="acc-item"><button class="acc-trigger"><span>Do I have to sign anything to work with you?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Depending on current requirements and brokerage policy, a buyer representation agreement may be part of the process. We explain exactly what it covers before you sign anything. Transparency is non-negotiable.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>What if the inspection reveals problems?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Every inspection reveals something. We review the report, separate routine maintenance from real concerns, and negotiate repair requests or credits where appropriate.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>What if the appraisal comes in low?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Options: renegotiate price, cover the gap, challenge with additional data, or exercise your contingency. A low appraisal is a data point — not an automatic deal-killer.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>When should I lock my rate?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Typically after your offer is accepted. Rate locks last 30-60 days. Your lender monitors conditions and recommends the right window.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>What should I avoid financially while under contract?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Don't open credit accounts, make large purchases, change jobs, move money without documentation, or co-sign loans. Keep your financial profile stable from application through closing.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>What makes your team different?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>You get a team. Dedicated TCs managing deadlines and paperwork. Agents focused on market analysis and negotiation. Daily monitoring. When you call, someone answers. Structure protects transactions.</p></div></div></div>
+        <div class="acc-item"><button class="acc-trigger"><span>How do you get paid?</span><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-content"><p>Agent compensation is addressed in your buyer representation agreement. We explain the structure transparently before you commit to working with us. No surprises.</p></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA ==================== -->
+<section class="section" id="contact" style="background:linear-gradient(135deg,var(--cream) 0%,#ede6d8 100%);">
+  <div class="container" style="text-align:center;max-width:700px;">
+    <div class="section-badge"><span class="badge-line"></span> Your Next Step</div>
+    <h2 class="section-title" style="margin-bottom:16px;">Ready to Start? Here's Your Next Move.</h2>
+    <p class="section-sub" style="margin:0 auto 40px;text-align:center;">Whether you're 30 days or 12 months away from buying, a conversation costs nothing and clarifies everything.</p>
+    <div class="grid-2" style="gap:16px;max-width:600px;margin:0 auto 16px;">
+      <a href="#goals" class="cta-btn cta-btn-gold" style="justify-content:center;width:100%;">Submit Your Buyer Profile</a>
+      <a href="#calculator" class="cta-btn cta-btn-outline" style="justify-content:center;width:100%;color:var(--navy);border-color:var(--navy);">Get Connected With Andrew</a>
+    </div>
+    <div class="grid-2" style="gap:16px;max-width:600px;margin:0 auto 40px;">
+      <a href="#tracker" class="cta-btn cta-btn-outline" style="justify-content:center;width:100%;color:var(--navy);border-color:var(--navy);">Start Your Readiness Tracker</a>
+      <a href="#financing" class="cta-btn cta-btn-outline" style="justify-content:center;width:100%;color:var(--navy);border-color:var(--navy);">Explore Financing Options</a>
+    </div>
+    <div style="margin-top:32px;padding-top:32px;border-top:1px solid rgba(27,42,74,0.1);">
+      <p style="font-family:var(--font-serif);font-size:1.2rem;color:var(--navy);margin-bottom:8px;">The Satish Brahmbhatt Real Estate Group</p>
+      <p style="font-size:0.9rem;color:#5a6a7a;">Central Pennsylvania &bull; Maryland &bull; Licensed in PA &amp; MD</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">The Satish Brahmbhatt Real Estate Group</div>
+  <p class="footer-text">Buyer Experience OS &bull; Built to Guide, Protect, and Prepare You<br><span style="font-size:0.75rem;margin-top:8px;display:inline-block;">This information is provided for general educational purposes only and does not constitute legal, tax, or lending advice.</span></p>
+</footer>
+
+<!-- ==================== ALL JAVASCRIPT ==================== -->
+<script>
+(function() {
+  'use strict';
+
+  // ===== BUYER TYPE SELECTOR =====
+  const buyerBtns = document.querySelectorAll('.buyer-btn');
+  buyerBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      buyerBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const mode = this.dataset.mode;
+      document.body.className = 'mode-' + mode;
+      // Switch calculator default based on buyer type
+      if (typeof switchCalcTab === 'function') {
+        if (mode === 'first') switchCalcTab('fha');
+        else if (mode === 'repeat') switchCalcTab('conventional');
+        else switchCalcTab('conventional');
+      }
+    });
+  });
+
+  // ===== GOAL CHIPS =====
+  document.querySelectorAll('.goal-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      const parent = this.parentElement;
+      const maxSelect = parent.id === 'prioritySelect' ? 4 : parent.id === 'timelineSelect' ? 1 : 99;
+      if (maxSelect === 1) { parent.querySelectorAll('.goal-chip').forEach(c => c.classList.remove('selected')); this.classList.add('selected'); }
+      else { const sel = parent.querySelectorAll('.goal-chip.selected').length; if (this.classList.contains('selected')) this.classList.remove('selected'); else if (sel < maxSelect) this.classList.add('selected'); }
+    });
+  });
+
+  // ===== ACCORDIONS =====
+  document.querySelectorAll('.acc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', function() {
+      const item = this.parentElement, body = item.querySelector('.acc-body'), content = body.querySelector('.acc-content'), wasOpen = item.classList.contains('open');
+      const accordion = item.parentElement;
+      accordion.querySelectorAll('.acc-item.open').forEach(o => { if (o !== item) { o.classList.remove('open'); o.querySelector('.acc-body').style.maxHeight = '0'; } });
+      if (wasOpen) { item.classList.remove('open'); body.style.maxHeight = '0'; } else { item.classList.add('open'); body.style.maxHeight = content.scrollHeight + 'px'; }
+    });
+  });
+
+  // ===== TIMELINE =====
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const wasActive = this.classList.contains('active');
+      document.querySelectorAll('.timeline-item').forEach(t => { t.classList.remove('active'); const d = t.querySelector('.timeline-desc'); if (d) d.style.maxHeight = '0'; });
+      if (!wasActive) { this.classList.add('active'); const d = this.querySelector('.timeline-desc'); if (d) d.style.maxHeight = d.scrollHeight + 'px'; }
+    });
+  });
+  const firstDesc = document.querySelector('.timeline-item.active .timeline-desc');
+  if (firstDesc) firstDesc.style.maxHeight = firstDesc.scrollHeight + 'px';
+
+  // ===== TABS =====
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const tabGroup = this.parentElement, container = tabGroup.parentElement, tabId = this.dataset.tab;
+      tabGroup.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');
+      container.querySelectorAll('.tab-panel').forEach(p => { p.classList.toggle('active', p.dataset.tab === tabId); });
+    });
+  });
+
+  // ===== CHECKLISTS WITH LOCALSTORAGE =====
+  const STORAGE_KEY = 'sb-buyer-os-checklist';
+  let checkState = {};
+  try { checkState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { checkState = {}; }
+  function saveCheckState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(checkState)); } catch(e) {} }
+  function updateProgress() {
+    const items = document.querySelectorAll('.tracker-checklist .check-item'); if (!items.length) return;
+    let total = items.length, checked = 0;
+    items.forEach(i => { if (i.classList.contains('checked')) checked++; });
+    const pct = Math.round((checked / total) * 100);
+    const pe = document.getElementById('trackerPercent'), fe = document.getElementById('trackerFill');
+    if (pe) pe.textContent = pct + '%'; if (fe) fe.style.width = pct + '%';
+  }
+  document.querySelectorAll('.check-item').forEach(item => {
+    const key = item.dataset.key; if (key && checkState[key]) item.classList.add('checked');
+    item.addEventListener('click', function() { const k = this.dataset.key; if (!k) return; this.classList.toggle('checked'); checkState[k] = this.classList.contains('checked'); saveCheckState(); updateProgress(); });
+  });
+  updateProgress();
+
+  // ===== MOBILE NAV =====
+  const navToggle = document.getElementById('navToggle'), navLinks = document.getElementById('navLinks');
+  if (navToggle && navLinks) { navToggle.addEventListener('click', () => navLinks.classList.toggle('open')); navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open'))); }
+
+  // ===== ACTIVE NAV =====
+  const sections = document.querySelectorAll('section[id]'), navAnchors = document.querySelectorAll('.nav-links a');
+  function updateActiveNav() { let cur = ''; sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; }); navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur)); }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+  // ===== STICKY CTA (show after scrolling past hero) =====
+  const stickyCta = document.getElementById('stickyCta');
+  function updateStickyCta() {
+    if (window.scrollY > window.innerHeight * 0.8) stickyCta.classList.add('visible');
+    else stickyCta.classList.remove('visible');
+  }
+  window.addEventListener('scroll', updateStickyCta, { passive: true });
+
+  // ===== SCROLL PROMPT (show at 60% scroll, once) =====
+  let scrollPromptShown = false;
+  const scrollPrompt = document.getElementById('scrollPrompt');
+  function checkScrollPrompt() {
+    if (scrollPromptShown) return;
+    const scrollPct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    if (scrollPct > 0.55) { scrollPrompt.classList.add('visible'); scrollPromptShown = true; }
+  }
+  window.addEventListener('scroll', checkScrollPrompt, { passive: true });
+
+  // ===== FADE-IN ON SCROLL =====
+  const calcCard = document.getElementById('calcTabs') ? document.getElementById('calcTabs').closest('.card') : null;
+  const lenderCard = document.getElementById('lenderForm') ? document.getElementById('lenderForm').closest('.card') : null;
+  const fadeEls = document.querySelectorAll('.card, .stat-card, .timeline-item');
+  const fadeObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  fadeEls.forEach(el => {
+    // Skip calculator and lender cards — they need to be fully interactive immediately
+    if (el === calcCard || el === lenderCard) return;
+    el.style.opacity = '0'; el.style.transform = 'translateY(16px)'; el.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; fadeObs.observe(el);
+  });
+
+  // ===== URL PERSONALIZATION =====
+  const params = new URLSearchParams(window.location.search);
+  const buyerName = params.get('name'), buyerType = params.get('type');
+  if (buyerName) { const hs = document.querySelector('.hero-sub'); if (hs) hs.innerHTML = 'Welcome, <span class="hero-name">' + buyerName + '</span>. ' + hs.textContent; }
+  if (buyerType) {
+    buyerBtns.forEach(b => b.classList.toggle('active', b.dataset.mode === buyerType));
+    document.body.className = 'mode-' + buyerType;
+    // Set calc default based on URL buyer type
+    setTimeout(() => { if (buyerType === 'first' && typeof switchCalcTab === 'function') switchCalcTab('fha'); }, 100);
+  }
+
+})();
+
+// ===== CLOSE SCROLL PROMPT =====
+function closeScrollPrompt() { document.getElementById('scrollPrompt').classList.remove('visible'); }
+
+// ==================== MORTGAGE CALCULATOR ====================
+let currentCalcType = 'conventional';
+function switchCalcTab(type) {
+  currentCalcType = type;
+  document.querySelectorAll('.calc-tab').forEach(t => t.classList.toggle('active', t.dataset.calc === type));
+  const vaInfo = document.getElementById('calc-va-info'), fhaInfo = document.getElementById('calc-fha-info');
+  const slider = document.getElementById('calc-down-slider'), downInput = document.getElementById('calc-down');
+  const priceRaw = parseCalcNum('calc-price');
+  vaInfo.style.display = type === 'va' ? 'block' : 'none'; fhaInfo.style.display = type === 'fha' ? 'block' : 'none';
+  if (type === 'va') { slider.value = 0; downInput.value = '0'; slider.min = 0; }
+  else if (type === 'fha') { slider.value = 3.5; downInput.value = formatNum(Math.round(priceRaw * 0.035)); slider.min = 3; }
+  else { slider.value = 5; downInput.value = formatNum(Math.round(priceRaw * 0.05)); slider.min = 0; }
+  recalcMortgage();
+}
+function parseCalcNum(id) { const el = document.getElementById(id); return el ? (parseFloat(el.value.replace(/[^0-9.]/g, '')) || 0) : 0; }
+function formatNum(n) { return Math.round(n).toLocaleString('en-US'); }
+function formatCalcInput(el) { const raw = el.value.replace(/[^0-9]/g, ''); el.value = raw ? parseInt(raw).toLocaleString('en-US') : ''; }
+function updateDownFromSlider(pct) { const price = parseCalcNum('calc-price'); document.getElementById('calc-down').value = formatNum(Math.round(price * (pct / 100))); document.getElementById('calc-dp-pct').textContent = pct + '%'; recalcMortgage(); }
+function recalcMortgage() {
+  const price = parseCalcNum('calc-price'), down = parseCalcNum('calc-down'), rate = parseFloat(document.getElementById('calc-rate').value) || 0;
+  const termYears = parseInt(document.getElementById('calc-term').value) || 30, annualTax = parseCalcNum('calc-tax'), annualIns = parseCalcNum('calc-ins');
+  let loanAmt = Math.max(price - down, 0);
+  if (currentCalcType === 'fha') loanAmt += loanAmt * 0.0175;
+  if (currentCalcType === 'va') { const dpPct = price > 0 ? (down/price)*100 : 0; let fr = 0.0215; if (dpPct >= 5 && dpPct < 10) fr = 0.015; else if (dpPct >= 10) fr = 0.0125; loanAmt += (price-down) * fr; }
+  const mr = rate/100/12, np = termYears*12;
+  let pi = 0;
+  if (mr > 0 && np > 0 && loanAmt > 0) pi = loanAmt * (mr * Math.pow(1+mr,np)) / (Math.pow(1+mr,np)-1);
+  else if (loanAmt > 0 && np > 0) pi = loanAmt / np;
+  const monthlyTax = annualTax/12, monthlyIns = annualIns/12;
+  let monthlyPMI = 0; const dpPct = price > 0 ? (down/price)*100 : 0;
+  const pmiRow = document.getElementById('calc-pmi-row'), pmiLabel = document.getElementById('calc-pmi-label');
+  if (currentCalcType === 'conventional') { if (dpPct < 20) { monthlyPMI = ((price-down)*(dpPct<5?0.01:dpPct<10?0.008:0.005))/12; pmiLabel.textContent='PMI (est.)'; pmiRow.style.display='flex'; } else pmiRow.style.display='none'; }
+  else if (currentCalcType === 'fha') { monthlyPMI=((price-down)*0.0055)/12; pmiLabel.textContent='FHA MIP (monthly)'; pmiRow.style.display='flex'; }
+  else { pmiLabel.textContent='No PMI'; pmiRow.style.display='flex'; monthlyPMI=0; }
+  const total = pi+monthlyTax+monthlyIns+monthlyPMI;
+  document.getElementById('calc-total').textContent='$'+formatNum(total);
+  document.getElementById('calc-pi').textContent='$'+formatNum(pi);
+  document.getElementById('calc-tax-mo').textContent='$'+formatNum(monthlyTax);
+  document.getElementById('calc-ins-mo').textContent='$'+formatNum(monthlyIns);
+  document.getElementById('calc-pmi-mo').textContent=currentCalcType==='va'?'$0':'$'+formatNum(monthlyPMI);
+  document.getElementById('calc-loan-amt').textContent='$'+formatNum(loanAmt);
+  document.getElementById('calc-dp-pct').textContent=(price>0?((down/price)*100).toFixed(1):'0')+'%';
+  const labels={conventional:'Conventional',fha:'FHA',va:'VA'};
+  document.getElementById('calc-loan-type-label').textContent=labels[currentCalcType]+' \u00B7 '+termYears+'-Year Fixed';
+}
+
+// Init calculator on page load
+recalcMortgage();
+
+// ==================== FUB API CONFIG ====================
+const FUB_API_KEY = 'fka_0m4cPTFKj1TOgwzvydjVvnLsVHUwjaYx4n';
+const FUB_API_URL = 'https://api.followupboss.com/v1/events';
+
+// ==================== LEAD FORM (GOALS MODULE) ====================
+async function submitLeadForm() {
+  const btn = document.getElementById('leadSubmitBtn'), msg = document.getElementById('leadFormMsg');
+  const firstName = document.getElementById('lead-first').value.trim();
+  const lastName = document.getElementById('lead-last').value.trim();
+  const email = document.getElementById('lead-email').value.trim();
+  const phone = document.getElementById('lead-phone').value.trim();
+  const buyerType = document.getElementById('lead-buyertype').value;
+  const notes = document.getElementById('lead-notes').value.trim();
+
+  // Collect chip selections
+  const getChips = (id) => { const chips = document.querySelectorAll('#'+id+' .goal-chip.selected'); return Array.from(chips).map(c => c.dataset.val).join(', '); };
+  const timeline = getChips('timelineSelect');
+  const propType = getChips('propSelect');
+  const areas = getChips('areaSelect');
+  const priorities = getChips('prioritySelect');
+
+  if (!firstName || !lastName || !email || !phone) {
+    msg.style.display='block'; msg.style.background='rgba(229,57,53,0.08)'; msg.style.color='#c62828';
+    msg.textContent='Please fill in your first name, last name, email, and phone.'; return;
+  }
+
+  btn.disabled=true; btn.textContent='Submitting...'; btn.style.opacity='0.6';
+
+  try {
+    const payload = {
+      source: 'Buyer Experience OS',
+      system: 'Buyer Experience OS',
+      type: 'Registration',
+      person: {
+        firstName: firstName, lastName: lastName,
+        emails: [{value: email}],
+        phones: phone ? [{value: phone}] : [],
+        tags: ['Buyer Lead', 'Buyer OS', buyerType || 'Type TBD'],
+      },
+      description: 'New buyer lead from Buyer Experience OS.\n' +
+        'Buyer Type: ' + (buyerType || 'Not specified') + '\n' +
+        'Timeline: ' + (timeline || 'Not specified') + '\n' +
+        'Property Type: ' + (propType || 'Not specified') + '\n' +
+        'Target Areas: ' + (areas || 'Not specified') + '\n' +
+        'Priorities: ' + (priorities || 'Not specified') + '\n' +
+        'Notes: ' + (notes || 'None')
+    };
+
+    const resp = await fetch(FUB_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa(FUB_API_KEY + ':') },
+      body: JSON.stringify(payload)
+    });
+
+    if (resp.ok) {
+      msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32';
+      msg.textContent='Profile submitted! Our team will review your information and reach out within one business day with your custom buying strategy.';
+      btn.textContent='Submitted Successfully'; btn.style.background='#2e7d32'; btn.style.opacity='1';
+    } else {
+      throw new Error('API response: ' + resp.status);
+    }
+  } catch(err) {
+    console.warn('FUB error:', err.message);
+    msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32';
+    msg.textContent='Thank you! Your profile has been received. Our team will be in touch within one business day.';
+    btn.textContent='Submitted'; btn.style.background='#2e7d32'; btn.style.opacity='1';
+  }
+
+  setTimeout(() => { btn.disabled=false; btn.textContent='Submit My Buyer Profile & Get a Custom Strategy'; btn.style.background=''; btn.style.opacity=''; }, 10000);
+}
+
+// ==================== LENDER FORM ====================
+async function submitLenderForm() {
+  const btn = document.getElementById('lenderSubmitBtn'), msg = document.getElementById('lenderFormMsg');
+  const firstName = document.getElementById('lf-first').value.trim();
+  const lastName = document.getElementById('lf-last').value.trim();
+  const email = document.getElementById('lf-email').value.trim();
+  const phone = document.getElementById('lf-phone').value.trim();
+  const loanType = document.getElementById('lf-loantype').value;
+  const message = document.getElementById('lf-message').value.trim();
+
+  if (!firstName || !lastName || !email) {
+    msg.style.display='block'; msg.style.background='rgba(229,57,53,0.08)'; msg.style.color='#c62828';
+    msg.textContent='Please fill in your first name, last name, and email.'; return;
+  }
+
+  btn.disabled=true; btn.textContent='Sending...'; btn.style.opacity='0.6';
+
+  try {
+    const payload = {
+      source: 'Buyer Experience OS - Lender Referral',
+      system: 'Buyer Experience OS',
+      type: 'Registration',
+      person: {
+        firstName: firstName, lastName: lastName,
+        emails: [{value: email}],
+        phones: phone ? [{value: phone}] : [],
+        tags: ['Lender Referral', 'Andrew Morcos', loanType || 'Loan Type TBD'],
+      },
+      description: 'Lender referral to Andrew Morcos at First Alliance Home Mortgage.\nLoan Type: ' + (loanType||'Not specified') + '\nMessage: ' + (message||'None') + '\nSource: Buyer Experience OS'
+    };
+    await fetch(FUB_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa(FUB_API_KEY + ':') }, body: JSON.stringify(payload) });
+  } catch(err) { console.warn('FUB:', err.message); }
+
+  // EMAIL 1: Referral to Andrew
+  const andrewSubject = encodeURIComponent('New Buyer Referral from The Satish Brahmbhatt Real Estate Group');
+  const andrewBody = encodeURIComponent('Hi Andrew,\n\nA new buyer would like to connect about financing.\n\nName: '+firstName+' '+lastName+'\nEmail: '+email+'\nPhone: '+(phone||'N/A')+'\nLoan Type: '+(loanType||'Not specified')+'\nMessage: '+(message||'None')+'\n\nSource: Buyer Experience OS\n\nThank you,\nThe Satish Brahmbhatt Real Estate Group');
+  window.open('mailto:amorcos@fahmloans.com?subject='+andrewSubject+'&body='+andrewBody, '_blank');
+
+  // EMAIL 2: Introduction email TO the buyer (sent from team to buyer)
+  setTimeout(() => {
+    const buyerSubject = encodeURIComponent('Your Lending Partner — Andrew Morcos at First Alliance Home Mortgage');
+    const buyerBody = encodeURIComponent(
+      'Hi ' + firstName + ',\n\n' +
+      'Thank you for reaching out to The Satish Brahmbhatt Real Estate Group about your home purchase.\n\n' +
+      'We\'ve connected you with our preferred lending partner, Andrew Morcos at First Alliance Home Mortgage. Andrew is one of the most experienced mortgage professionals we work with — he specializes in finding the right financing solution for every buyer, whether you\'re exploring conventional, FHA, VA, or down payment assistance options.\n\n' +
+      '— — — — — — — — — — — — — — — — — —\n\n' +
+      'ANDREW MORCOS\n' +
+      'VP Business Development\n' +
+      'First Alliance Home Mortgage, LLC\n' +
+      'NMLS #190629 | Company NMLS #5034\n\n' +
+      'Cell: (201) 519-9712\n' +
+      'Office: (717) 755-4400 x1102\n' +
+      'Email: amorcos@fahmloans.com\n' +
+      '2805 Eastern Blvd, York, PA\n\n' +
+      '— — — — — — — — — — — — — — — — — —\n\n' +
+      'GET PRE-QUALIFIED NOW:\n' +
+      'https://amorcos.firstalliancehomemortgage.com\n\n' +
+      'Click the link above to start your pre-qualification on Andrew\'s secure portal. It takes about 10 minutes and helps determine your buying power before we begin your home search.\n\n' +
+      'WHAT HAPPENS NEXT:\n\n' +
+      '1. Click the link above and complete the pre-qualification form\n' +
+      '2. Andrew will review your information and call you to discuss your options\n' +
+      '3. Once pre-approved, we activate your custom home search and start monitoring the market daily\n\n' +
+      'Andrew typically reaches out within 24 hours of receiving your application. If you have questions before then, feel free to call or text him directly at (201) 519-9712.\n\n' +
+      'We look forward to guiding you through your home purchase.\n\n' +
+      'Best,\n' +
+      'The Satish Brahmbhatt Real Estate Group\n' +
+      'Central Pennsylvania | Maryland\n\n' +
+      '---\n' +
+      'This email is for informational purposes only and does not constitute a loan commitment or guarantee of rates or terms. All lending decisions are made by First Alliance Home Mortgage, LLC. Equal Housing Lender.'
+    );
+    window.open('mailto:' + email + '?subject=' + buyerSubject + '&body=' + buyerBody, '_blank');
+  }, 1500);
+
+  msg.style.display='block'; msg.style.background='rgba(76,175,80,0.1)'; msg.style.color='#2e7d32';
+  msg.innerHTML='<strong>Two emails will open:</strong><br>1. Referral to Andrew — hit send to notify him<br>2. Introduction to ' + firstName + ' — hit send to connect them with Andrew\'s pre-qualification portal';
+  btn.textContent='Sent Successfully'; btn.style.background='#2e7d32'; btn.style.opacity='1';
+  setTimeout(() => { btn.disabled=false; btn.textContent='Send to Andrew & Get Pre-Approval Started'; btn.style.background=''; btn.style.opacity=''; }, 12000);
+}
+</script>
+</body>
+</html>
