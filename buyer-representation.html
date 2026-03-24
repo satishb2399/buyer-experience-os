@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Buyer Representation — The Satish Brahmbhatt Real Estate Group</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --navy: #1B2A4A;
+  --gold: #C5A55A;
+  --charcoal: #2D2D2D;
+  --cream: #F5F0E8;
+  --dark-gold: #B8973F;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@page {
+  size: letter;
+  margin: 0.65in 0.75in;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--charcoal);
+  font-size: 10pt;
+  line-height: 1.6;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ===== HEADER ===== */
+.doc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2.5pt solid var(--navy);
+  padding-bottom: 14pt;
+  margin-bottom: 20pt;
+}
+.brand {
+  font-family: var(--font-serif);
+  font-size: 16pt;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+}
+.brand span {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 7.5pt;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 2pt;
+}
+.header-right {
+  text-align: right;
+  font-size: 8pt;
+  color: #5a6a7a;
+  line-height: 1.5;
+}
+
+/* ===== DOCUMENT TITLE ===== */
+.doc-title {
+  text-align: center;
+  margin-bottom: 24pt;
+}
+.doc-title h1 {
+  font-family: var(--font-serif);
+  font-size: 20pt;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 4pt;
+}
+.doc-title .subtitle {
+  font-size: 9pt;
+  color: #5a6a7a;
+  font-weight: 400;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  margin-bottom: 20pt;
+  page-break-inside: avoid;
+}
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: 12.5pt;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8pt;
+  padding-bottom: 4pt;
+  border-bottom: 1pt solid rgba(197,165,90,0.4);
+}
+.section p, .section li {
+  font-size: 9.5pt;
+  line-height: 1.65;
+  color: var(--charcoal);
+}
+.section p + p {
+  margin-top: 6pt;
+}
+
+/* ===== CALLOUT BOX ===== */
+.callout {
+  background: var(--cream);
+  border-left: 3pt solid var(--gold);
+  padding: 10pt 14pt;
+  margin: 12pt 0;
+  border-radius: 3pt;
+}
+.callout p {
+  font-size: 9pt;
+  color: var(--charcoal);
+}
+.callout strong {
+  color: var(--navy);
+}
+
+/* ===== LISTS ===== */
+ul, ol {
+  padding-left: 18pt;
+  margin: 6pt 0;
+}
+li {
+  margin-bottom: 4pt;
+}
+li strong {
+  color: var(--navy);
+}
+
+/* ===== TWO-COLUMN ===== */
+.two-col {
+  display: flex;
+  gap: 24pt;
+}
+.two-col > div {
+  flex: 1;
+}
+
+/* ===== SERVICE GRID ===== */
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10pt;
+  margin: 10pt 0;
+}
+.service-item {
+  padding: 10pt 12pt;
+  border: 0.75pt solid rgba(27,42,74,0.12);
+  border-radius: 4pt;
+  page-break-inside: avoid;
+}
+.service-item h4 {
+  font-family: var(--font-serif);
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 3pt;
+}
+.service-item p {
+  font-size: 8.5pt;
+  color: #5a6a7a;
+  line-height: 1.55;
+}
+
+/* ===== PHASE BLOCK ===== */
+.phase {
+  display: flex;
+  gap: 10pt;
+  margin-bottom: 8pt;
+  page-break-inside: avoid;
+}
+.phase-num {
+  flex-shrink: 0;
+  width: 24pt;
+  height: 24pt;
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 9pt;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-top: 1pt;
+}
+.phase-content h4 {
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 2pt;
+}
+.phase-content p {
+  font-size: 8.5pt;
+  color: #5a6a7a;
+}
+
+/* ===== COMPENSATION TABLE ===== */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10pt 0;
+  font-size: 9pt;
+}
+.comp-table th {
+  background: var(--navy);
+  color: white;
+  text-align: left;
+  padding: 7pt 10pt;
+  font-weight: 600;
+  font-size: 8.5pt;
+  letter-spacing: 0.02em;
+}
+.comp-table td {
+  padding: 7pt 10pt;
+  border-bottom: 0.5pt solid rgba(27,42,74,0.1);
+  vertical-align: top;
+}
+.comp-table tr:nth-child(even) td {
+  background: rgba(245,240,232,0.5);
+}
+
+/* ===== SIGNATURE BLOCK ===== */
+.sig-block {
+  margin-top: 28pt;
+  page-break-inside: avoid;
+}
+.sig-row {
+  display: flex;
+  gap: 40pt;
+  margin-bottom: 24pt;
+}
+.sig-field {
+  flex: 1;
+}
+.sig-line {
+  border-bottom: 1pt solid var(--charcoal);
+  height: 28pt;
+  margin-bottom: 3pt;
+}
+.sig-label {
+  font-size: 7.5pt;
+  color: #5a6a7a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ===== FOOTER ===== */
+.doc-footer {
+  margin-top: 20pt;
+  padding-top: 12pt;
+  border-top: 1.5pt solid var(--navy);
+  text-align: center;
+  font-size: 7.5pt;
+  color: #8a95a5;
+  line-height: 1.6;
+}
+.doc-footer .equal-housing {
+  font-size: 7pt;
+  margin-top: 4pt;
+}
+
+/* ===== PAGE BREAKS ===== */
+.page-break {
+  page-break-before: always;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* ===== PRINT SPECIFICS ===== */
+@media print {
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page-break { page-break-before: always; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1 ==================== -->
+
+<div class="doc-header">
+  <div class="brand">The Satish Brahmbhatt<span>Real Estate Group</span></div>
+  <div class="header-right">
+    Licensed in Pennsylvania &amp; Maryland<br>
+    (717) 790-1847 &bull; info@sbrealty.co
+  </div>
+</div>
+
+<div class="doc-title">
+  <h1>Buyer Representation</h1>
+  <div class="subtitle">Understanding Your Representation, Our Commitments, and How We Work Together</div>
+</div>
+
+<!-- INTRODUCTION -->
+<div class="section">
+  <h2 class="section-heading">Why Buyer Representation Matters</h2>
+  <p>Buying a home is one of the largest financial decisions you will make. The seller has professional representation working exclusively in their interest. Without your own dedicated agent, no one at the table is contractually obligated to protect yours.</p>
+  <p>A buyer's agent works exclusively for you — evaluating properties critically, identifying risks, negotiating terms that protect your investment, and managing every deadline from contract through closing. We don't earn more when you pay more. Our job is to get you the right home at the right price on the right terms.</p>
+
+  <div class="callout">
+    <p><strong>Industry Requirement:</strong> As of current industry practice, a written buyer representation agreement is required before an agent can show you homes. This agreement defines the services provided, the duration of the relationship, and how compensation is structured. We review every section with you before you sign — no surprises.</p>
+  </div>
+</div>
+
+<!-- THREE PILLARS -->
+<div class="section">
+  <h2 class="section-heading">What You Get With Dedicated Representation</h2>
+  <div class="service-grid">
+    <div class="service-item">
+      <h4>Advocacy, Not Sales</h4>
+      <p>We work in your interest exclusively. We evaluate properties critically, identify risks you'd miss, and advise against purchases that don't serve your goals — even when it means no sale.</p>
+    </div>
+    <div class="service-item">
+      <h4>Market Intelligence</h4>
+      <p>Daily monitoring of your target areas — new listings, price changes, expired listings, and off-market opportunities filtered through local knowledge of neighborhoods, schools, and resale patterns.</p>
+    </div>
+    <div class="service-item">
+      <h4>Negotiation Strategy</h4>
+      <p>We analyze comparable sales, seller motivation, days on market, and competing offers to position your offer as the one that wins — without overpaying or waiving protections recklessly.</p>
+    </div>
+    <div class="service-item">
+      <h4>Transaction Management</h4>
+      <p>From executed agreement through closing day, our team manages every deadline, document, and communication. Nothing falls through the cracks because a system is behind every transaction.</p>
+    </div>
+    <div class="service-item">
+      <h4>Financial Coordination</h4>
+      <p>We stay connected with your lender throughout the process to catch issues early, ensure timely appraisals, and keep your financing on track so closing day isn't delayed.</p>
+    </div>
+    <div class="service-item">
+      <h4>Post-Closing Support</h4>
+      <p>Our relationship doesn't end at the closing table. Questions about your home, vendors, warranties, or future real estate needs — we remain available and responsive.</p>
+    </div>
+  </div>
+</div>
+
+<!-- YOUR JOURNEY -->
+<div class="section">
+  <h2 class="section-heading">How the Process Works</h2>
+  <div class="phase">
+    <div class="phase-num">1</div>
+    <div class="phase-content">
+      <h4>Buyer Strategy Session</h4>
+      <p>We start with a conversation about your goals, budget, timeline, and priorities. This is where we understand what you're looking for — and what you need to avoid.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num">2</div>
+    <div class="phase-content">
+      <h4>Financial Preparation</h4>
+      <p>We connect you with trusted lenders to get pre-approved. Pre-approval defines your budget and makes your offers credible. We don't tour until your financing is clear.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num">3</div>
+    <div class="phase-content">
+      <h4>Representation Agreement</h4>
+      <p>We review and execute the buyer representation agreement together. Every term, every obligation, and the compensation structure are explained clearly before you commit.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num">4</div>
+    <div class="phase-content">
+      <h4>Active Home Search</h4>
+      <p>Targeted property identification, scheduled showings, and honest evaluations. We don't just add you to an auto-search — we actively monitor and filter based on what you learn as you tour.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num">5</div>
+    <div class="phase-content">
+      <h4>Offer &amp; Negotiation</h4>
+      <p>Comparative market analysis, offer strategy, terms positioning, and negotiation through acceptance. We structure offers that win without exposing you to unnecessary risk.</p>
+    </div>
+  </div>
+  <div class="phase">
+    <div class="phase-num">6</div>
+    <div class="phase-content">
+      <h4>Contract Through Closing</h4>
+      <p>Inspection coordination, appraisal management, title work, final walkthrough, and closing day preparation. Every deadline tracked and managed by our team.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page-break"></div>
+
+<div class="doc-header">
+  <div class="brand">The Satish Brahmbhatt<span>Real Estate Group</span></div>
+  <div class="header-right">
+    Licensed in Pennsylvania &amp; Maryland<br>
+    (717) 790-1847 &bull; info@sbrealty.co
+  </div>
+</div>
+
+<!-- OUR COMMITMENTS -->
+<div class="section">
+  <h2 class="section-heading">Our Commitments to You</h2>
+  <div class="two-col">
+    <div>
+      <ul>
+        <li><strong>Communication:</strong> Consistent, proactive updates — not silence between showings. You'll always know where things stand.</li>
+        <li><strong>Market Monitoring:</strong> Daily watch on your target criteria, areas, and price ranges. Opportunities don't wait and neither do we.</li>
+        <li><strong>Honest Evaluation:</strong> We'll tell you when a home is overpriced, when a neighborhood doesn't match your goals, or when walking away is the right move.</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><strong>Deadline Management:</strong> Every contingency date, inspection window, and financing milestone is tracked and managed so nothing is missed.</li>
+        <li><strong>Lender Coordination:</strong> We stay in direct contact with your lender to catch issues before they become problems.</li>
+        <li><strong>Availability:</strong> When you call, someone answers. Our team structure ensures responsive support throughout your transaction.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- COMPENSATION -->
+<div class="section">
+  <h2 class="section-heading">Compensation Transparency</h2>
+  <p>We believe you should understand exactly how your agent is compensated before you commit to working together. There are no hidden fees and no surprises.</p>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th style="width:30%;">Topic</th>
+        <th>How It Works</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Buyer Representation Agreement</strong></td>
+        <td>Defines the services we provide, the term of the relationship, and the compensation structure. Required before we begin showing homes.</td>
+      </tr>
+      <tr>
+        <td><strong>Agent Compensation</strong></td>
+        <td>Our compensation is specified in your buyer representation agreement. In many transactions, the seller offers compensation to the buyer's agent through the listing. When that occurs, it is applied toward the agreed amount. We explain all scenarios before you sign.</td>
+      </tr>
+      <tr>
+        <td><strong>No Hidden Costs</strong></td>
+        <td>You will never be charged fees outside of what is documented in your agreement. Administrative fees, showing fees, or surprise charges are not part of how we operate.</td>
+      </tr>
+      <tr>
+        <td><strong>Duration &amp; Termination</strong></td>
+        <td>The agreement covers a defined period. If at any point you feel our service does not meet the standard we've committed to, we discuss it directly and work toward a resolution.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PENNSYLVANIA / MARYLAND COMPLIANCE -->
+<div class="section">
+  <h2 class="section-heading">State Compliance &amp; Consumer Protection</h2>
+  <div class="two-col">
+    <div>
+      <h4 style="font-family:var(--font-serif);color:var(--navy);font-size:10pt;margin-bottom:4pt;">Pennsylvania</h4>
+      <p>Pennsylvania requires that buyers receive a <strong>Consumer Notice</strong> early in the relationship. This document explains the types of agency relationships available and your rights as a consumer. We walk you through this clearly — it's a transparency tool designed to protect you.</p>
+    </div>
+    <div>
+      <h4 style="font-family:var(--font-serif);color:var(--navy);font-size:10pt;margin-bottom:4pt;">Maryland</h4>
+      <p>Maryland requires agents to provide a <strong>Understanding Whom Real Estate Agents Represent</strong> disclosure. This document explains agency relationships and ensures you understand who represents your interests in the transaction. We review this with you at our first meeting.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:14pt;">
+    <p><strong>Our Position:</strong> These disclosures exist to protect you. We don't treat them as paperwork to rush through — we treat them as an opportunity to demonstrate that transparency is how we operate. Ask questions. Read every line. That's what they're for.</p>
+  </div>
+</div>
+
+<!-- WHAT WE ASK OF YOU -->
+<div class="section">
+  <h2 class="section-heading">What We Ask of You</h2>
+  <p>Representation works best as a partnership. To serve you effectively, we ask the following:</p>
+  <ul>
+    <li><strong>Honesty About Your Goals:</strong> The more clearly we understand your priorities, budget, and timeline, the more effectively we can search, advise, and negotiate on your behalf.</li>
+    <li><strong>Financial Readiness:</strong> Obtain pre-approval before we begin touring. This protects your time and ensures we're looking at homes you can realistically purchase.</li>
+    <li><strong>Exclusive Relationship:</strong> During the term of our agreement, we are your dedicated representative. Working with multiple agents simultaneously creates conflicts and weakens your position.</li>
+    <li><strong>Responsive Communication:</strong> When time-sensitive decisions arise — a new listing, a counter-offer, a deadline — timely responses protect your interests and your position.</li>
+    <li><strong>Trust the Process:</strong> There will be moments of uncertainty. That's why you have representation. Let us manage the complexity while you make informed decisions.</li>
+  </ul>
+</div>
+
+<!-- FREQUENTLY ASKED QUESTIONS -->
+<div class="section">
+  <h2 class="section-heading">Common Questions</h2>
+
+  <p style="margin-bottom:4pt;"><strong>Do I have to sign a buyer representation agreement to work with you?</strong></p>
+  <p style="margin-bottom:10pt;">Yes. A written agreement is required before we can show you homes. This agreement protects both parties by clearly defining services, expectations, and compensation. We review every section together before you sign.</p>
+
+  <p style="margin-bottom:4pt;"><strong>How long does the agreement last?</strong></p>
+  <p style="margin-bottom:10pt;">The term is defined in your agreement and is discussed before signing. We set a duration that aligns with your expected timeline — not an artificially long commitment.</p>
+
+  <p style="margin-bottom:4pt;"><strong>What if I find a home on my own — at an open house or online?</strong></p>
+  <p style="margin-bottom:10pt;">You are still fully represented. Whether you discover a home through our search, an open house, a yard sign, or a friend's recommendation, our representation and services apply. Contact us before engaging with any listing agent directly.</p>
+
+  <p style="margin-bottom:4pt;"><strong>Can I cancel the agreement?</strong></p>
+  <p style="margin-bottom:10pt;">If you feel our service does not meet the standard we've committed to, we talk about it directly. The terms for termination are outlined in your agreement and reviewed with you before signing.</p>
+
+  <p style="margin-bottom:4pt;"><strong>How is your compensation different from what I see listed on a home?</strong></p>
+  <p style="margin-bottom:10pt;">Seller-offered compensation and your buyer representation agreement work together. If a seller offers compensation to the buyer's agent, it is applied toward the amount in your agreement. If there is a difference, we discuss it before you make an offer — never after.</p>
+</div>
+
+<!-- SIGNATURE -->
+<div class="sig-block">
+  <h2 class="section-heading">Acknowledgment</h2>
+  <p style="font-size:9pt;margin-bottom:16pt;">By signing below, I acknowledge that I have received and reviewed this Buyer Representation overview from The Satish Brahmbhatt Real Estate Group. I understand the scope of services, how compensation works, and my responsibilities as outlined above. This document is informational — the formal Buyer Representation Agreement is a separate legal document that will be reviewed and executed prior to touring properties.</p>
+
+  <div class="sig-row">
+    <div class="sig-field">
+      <div class="sig-line"></div>
+      <div class="sig-label">Buyer Name (Printed)</div>
+    </div>
+    <div class="sig-field">
+      <div class="sig-line"></div>
+      <div class="sig-label">Date</div>
+    </div>
+  </div>
+  <div class="sig-row">
+    <div class="sig-field">
+      <div class="sig-line"></div>
+      <div class="sig-label">Buyer Signature</div>
+    </div>
+    <div class="sig-field">
+      <div class="sig-line"></div>
+      <div class="sig-label">Agent Signature — The Satish Brahmbhatt Real Estate Group</div>
+    </div>
+  </div>
+  <div class="sig-row">
+    <div class="sig-field">
+      <div class="sig-line"></div>
+      <div class="sig-label">Co-Buyer Name (Printed), if applicable</div>
+    </div>
+    <div class="sig-field">
+      <div class="sig-line"></div>
+      <div class="sig-label">Co-Buyer Signature</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div>The Satish Brahmbhatt Real Estate Group &bull; Central Pennsylvania &bull; Maryland &bull; Licensed in PA &amp; MD</div>
+  <div>(717) 790-1847 &bull; info@sbrealty.co</div>
+  <div class="equal-housing">&#9878; Equal Housing Opportunity. This document is provided for informational and educational purposes only and does not constitute legal advice. Consult your attorney for legal questions regarding any agreement.</div>
+</div>
+
+</body>
+</html>
